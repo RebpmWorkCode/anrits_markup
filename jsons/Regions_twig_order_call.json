@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "twig_order_call",
+            "alias": "twig_order_call",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "twig_order_call",
+                "alias": "twig_order_call",
+                "body": "{% set flash = _view.loadHelper('Flash') %}\r\n{% set flashOut = flash.render() %}\r\n{% if flashOut %}\r\n    {% set result = {} %}\r\n    {% if flashOut matches '\/message success\/' %}\r\n        {% set result = {'success': true, 'original': flashOut} %}\r\n    {% else %}\r\n        {% set text = flashOut|replace({'<div id=\"flashMessage\" class=\"message error\">': '', '<\/div>': ''})|trim %}\r\n        {% set result = {'success': false, 'original': flashOut, text: text} %}\r\n    {% endif %}\r\n    {{ result|json_encode }}\r\n{% else %}\r\n{{ form.create('FeedbackMessage', {\r\n    'url': {'plugin': 'feedback', 'controller': 'feedback', 'action': 'send', '0': 'order_call'},\r\n    'id': 'FeedbackMessageSendFormOrderCall',\r\n    'class': 'send-form',\r\n    'autocomplete': 'off',\r\n    'inputDefaults': {'div': 'ani-input-wrap'}\r\n}) }}\r\n    {{ form.input('name', {\r\n        'id': 'FeedbackMessageNameOrderCall',\r\n        'label': {'class': 'ani-label', 'text': 'Имя *'},\r\n        'class': 'client-name ani-input',\r\n        'type': 'text',\r\n        'required': true,\r\n    }) }}\r\n    {{ form.input('phone', {\r\n        'label': {'class': 'ani-label', 'text': 'Телефон *'},\r\n        'id': 'FeedbackMessagePhoneOrderCall',\r\n        'class': 'client-phone ani-input',\r\n        'required': true,\r\n        'type': 'tel'\r\n    }) }}\r\n    {{ form.input('message', {\r\n        'label': {'class': 'ani-label', 'text': 'Ваше сообщение *'},\r\n        'id': 'FeedbackMessageMessageOrderCall',\r\n        'class': 'client-message',\r\n        'required': true,\r\n        'rows': 3,\r\n        'type': 'textarea'\r\n    }) }}\r\n<div class=\"btn-holder\">\r\n    <button type=\"submit\" class=\"btn\">Оставить заявку<\/button>\r\n    {% if recaptcha.hasKey() %}\r\n        {{ recaptcha.display_form({'id': 'order_call', 'div': 'recaptcha-block'}) }}\r\n    {% endif %}\r\n<\/div>\r\n<div class=\"form-agree align-left\">\r\n    <label class=\"checkbox-label form-agree-check checked\">\r\n        {{ form.checkbox('confirmation', {\r\n            'checked': true,\r\n            'id': 'FeedbackMessageConfirmationOrderCall',\r\n            'hiddenField': false,\r\n            'class': 'accent-check',\r\n            'value': 1,\r\n        }) }} Настоящим подтверждаю, что ознакомлен и согласен с условиями <a href=\"#\" class=\"open-text-modal agree-link\" data-id=\"1\">политики конфиденциальности.<\/a>\r\n    <\/label>\r\n<\/div>\r\n{{ form.end() }}\r\n{% endif %}\r\n",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

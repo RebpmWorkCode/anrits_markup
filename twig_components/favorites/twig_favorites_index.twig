@@ -1,0 +1,55 @@
+<section class="section-selected" id="selected">
+    <div class="container">
+        <ul class="breadcrumbs not-marked nav">
+            <li><a href="/" class="breadcrumbs-link">
+                <svg class="svg-icon smart-home-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 223 193.5">
+                    <path class="st0" d="M204.5,79.3l-86-76.7c-4-3.5-9.9-3.5-13.9,0l-86,76.7c-2.2,2-3.5,4.8-3.5,7.8v96c0,5.8,4.7,10.4,10.4,10.4 h172.1c5.8,0,10.4-4.7,10.4-10.4v-96C208,84.1,206.7,81.3,204.5,79.3L204.5,79.3z M187.1,172.6H35.9V91.8l75.6-67.4l75.6,67.4 V172.6L187.1,172.6z"/>
+                </svg>
+            </a></li>
+            <li><a href="/" class="breadcrumbs-link dark">Избранное</a></li>
+        </ul>
+        <div class="title-normal title-min-size"><h2>Избранное</h2></div>
+
+        <div class="row row-3">
+            {% set adView = _view.loadHelper('Agency.AdView') %}
+            {% set imageResized = _view.loadHelper('ImageCompress.ImageResized') %}
+            {% set adSeo = _view.loadHelper('Agency.AdSeo') %}
+            {% set price = _view.loadHelper('Agency.Price') %}
+            {% set rusTime = _view.loadHelper('Fastadmin.RusTime') %}
+            {% set complexCategory = _view.loadHelper('ComplexCategories.ComplexCategory') %}
+            {% set favorite = _view.loadHelper('Favorites.Favorite') %}
+            {{ adView.setDefaults({default_picture: config.Site.no_photo_image}) }}
+            {% for item in list %}
+                {% set offerItem = adView.getInfo(item) %}
+                <div class="col-1-3 col-xs-1">
+                    <a href="{{ html.url(offerItem.url) }}" class="case-item selected" title="{{ adSeo.pattern_title(item)|e }}">
+                        {% set favoriteActiveClass = '' %}
+                        {% set favoriteAction = 'add' %}
+                        {% if favorite.has('Advertisement', item.Advertisement.id) %}
+                            {% set favoriteActiveClass = ' active' %}
+                            {% set favoriteAction = 'remove' %}
+                        {% endif %}
+                        {{ html.tag('div', '', {
+                            'class': 'favorites-action in-favorites-action star' ~ favoriteActiveClass,
+                            'escape': false,
+                            'data-model': 'Advertisement',
+                            'data-id': item.Advertisement.id,
+                            'data-action': favoriteAction
+                        }) }}
+                        <div class="case-id">id {{ item.Advertisement.id }}</div>
+                        <picture class="case-image-wrap">
+                            {% set gallery = adView.getGallery(item) %}
+                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_list'}) %}
+                            <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
+                        </picture>
+                        <div class="case-content">
+                            <div class="case-title">{{ item.Advertisement.location_full|e }}</div>
+                            <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
+                            <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

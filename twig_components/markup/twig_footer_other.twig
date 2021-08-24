@@ -1,0 +1,47 @@
+<div class="si-overlay"></div>
+<div class="si-overlay-2"></div>
+<div class="si-modals-wrapper-2"></div>
+<div class="si-modals-wrapper">
+    <div class="si-success-modal si-success-modal-1">
+        <a href="#" class="si-close"><svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64"><path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/></svg></a>
+        <div class="modal-container align-center">
+            <div class="si-success-modal-title">Спасибо!</div>
+            <div class="success-time">Наш менеджер свяжется с вами в течение ближайшего времени</div>
+            <p><strong>Время работы отдела продаж:</strong>пн-пт с 10.00 до 20.00 (по Москве)</p>
+        </div>
+    </div>
+    <div class="si-modal phone-modal">
+        <a href="#" class="si-close"><svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64"><path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/></svg></a>
+        <div class="modal-container">
+            <div class="modal-form-title align-center">Связаться с нашим агентом</div>
+            <div class="modal-time align-center">и мы перезвоним Вам в ближайшее время</div>
+            {{ croogo_region alias = "twig_order_call" }}
+        </div>
+    </div>
+    {% if (_view.request.controller == 'realty' and _view.request.action == 'view') %}
+    <div class="si-modal mortgage-modal">
+        <a href="#" class="si-close"><svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;"><path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/></svg></a>
+        <div class="modal-container">
+            <div class="modal-form-title align-center">Заявка на ипотеку</div>
+            {{ croogo_region alias = "twig_mortgage_add" }}
+        </div>
+    </div>
+    {% endif %}
+    <div class="si-modal review-modal">
+        <a href="#" class="si-close"><svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;"><path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/></svg></a>
+        <div class="modal-container">
+            <div class="modal-form-title align-center">Оставьте свой отзыв</div>
+            <div class="modal-time align-center">Введите текст отзыва ниже и отправьте его нам.</div>
+            {{ croogo_region alias = "twig_form_review" }}
+        </div>
+    </div>
+    <div class="si-modal text-modal text-modal-1">
+        <a href="#" class="si-close"><svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64"><path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/></svg></a>
+        <div class="modal-container">
+            <div class="modal-form-title align-center">Согласие на обработку персональных данных</div>
+            <div class="modal-text-block">
+                {{ croogo_region alias = "twig_private_data" }}
+            </div>
+        </div>
+    </div>
+</div>

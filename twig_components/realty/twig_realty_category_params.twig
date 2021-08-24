@@ -1,0 +1,23 @@
+<div id="categoryParams">
+    {% set fieldName = {
+        '0': {'fieldName': 'data_int', 'type': 'text', 'class': 'input-normal'},
+        '1': {'fieldName': 'data_str', 'type': 'text', 'class': 'input-normal'},
+        '2': {'fieldName': 'data_int', 'type': 'select', 'class': ''}
+    } %}
+    {% for categoryParam in categoryParams|batch(2) %}
+        <div class="row">
+            {% for index,categoryParamItem in categoryParam %}
+                <div class="col-1-2">
+                    {{ form.hidden('CategoryParamValue.'~index~'.category_param_id', {'value': categoryParamItem.CategoryParam.id}) }}
+                    {{ form.input('CategoryParamValue.'~index~'.'~ attribute(fieldName[categoryParamItem.CategoryParamType.type], 'fieldName'), {
+                        'type': attribute(fieldName[categoryParamItem.CategoryParamType.type], 'type'),
+                        'label': {'class': 'label-title', 'text': complexCategory.getLabel(categoryParamItem)},
+                        'options': complexCategory.getOptions(categoryParamItem),
+                        'empty': '-------',
+                        'class': attribute(fieldName[categoryParamItem.CategoryParamType.type], 'class')
+                    }) }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

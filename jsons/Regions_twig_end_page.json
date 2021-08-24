@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "Twig | End Page",
+            "alias": "twig_end_page",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "Twig | End Page",
+                "alias": "twig_end_page",
+                "body": "<\/div>\r\n<script>const template_url = `${location.origin}\/uploads\/assets`;<\/script>\r\n<!--[if IE]><script src=\"\/uploads\/assets\/js\/html5shiv.js\"><\/script> <![endif]-->\r\n<script src=\"\/uploads\/assets\/js\/plugins-all.js\"><\/script>\r\n<script src=\"\/uploads\/assets\/js\/jquery.easing.js\"><\/script>\r\n<script src=\"\/uploads\/assets\/js\/jquery-ui.min.js\"><\/script>\r\n<script src=\"\/uploads\/assets\/js\/jquery.ui.touch.min.js\"><\/script>\r\n<script src=\"\/uploads\/assets\/js\/smooth-scroll-1.4.9.min.js\"><\/script>\r\n<script src=\"\/\/api-maps.yandex.ru\/2.1\/?lang=ru_RU\"><\/script>\r\n{{ html.script('\/libraries\/lazyload\/lazyload.min.js') }}\r\n{{ html.script('\/libraries\/lazyload\/lazyload_init.js') }}\r\n{{ html.script('Favorites.favorite_site') }}\r\n<script src=\"\/uploads\/assets\/js\/locations.js\"><\/script>\r\n<script src=\"\/uploads\/assets\/js\/main.js\"><\/script>\r\n<script src=\"\/uploads\/assets\/js\/share.js\"><\/script>\r\n{{ _view.fetch('script') }}\r\n<\/body>\r\n<\/html>",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

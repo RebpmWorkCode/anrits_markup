@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "Twig | Форма создания ипотечной заявки",
+            "alias": "twig_mortgage_add",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "Twig | Форма создания ипотечной заявки",
+                "alias": "twig_mortgage_add",
+                "body": "<form action=\"\/agency\/bids\/add_mortgage\" method=\"post\" class=\"send-form\" autocomplete=\"off\">\r\n    <input type=\"hidden\" name=\"data[advertisement_id]\" value=\"{{ advertisement.Advertisement.id }}\">\r\n    <label for=\"form_payment\" class=\"label-title\">Взнос<\/label>\r\n    <input min=\"0\" type=\"number\" id=\"form_payment\" name=\"data[initialPayment]\" placeholder=\"Взнос\">\r\n    <label for=\"form_credit-precent\" class=\"label-title\">Процентная ставка<\/label>\r\n    <input step=\"1\" min=\"1\" max=\"99\" type=\"number\" id=\"form_credit-precent\" name=\"data[interestRate]\"  placeholder=\"Процентная ставка\">\r\n    <label for=\"form_credit-time\" class=\"label-title\">Срок кредита, лет<\/label>\r\n    <input step=\"1\" min=\"1\" type=\"number\" id=\"form_credit-time\" name=\"data[creditTerm]\" placeholder=\"Срок кредита\">\r\n    <div class=\"ani-input-wrap\">\r\n        <label for=\"fullname\" class=\"ani-label\">Имя *<\/label>\r\n        <input id=\"fullname\" type=\"text\" name=\"data[fullname]\" required class=\"client-name ani-input\">\r\n    <\/div>\r\n    <div class=\"ani-input-wrap\">\r\n        <label for=\"phone\" class=\"ani-label\">Телефон *<\/label>\r\n        <input id=\"phone\" type=\"tel\" name=\"data[phone]\" required class=\"client-phone ani-input\">\r\n    <\/div>\r\n    <div class=\"ani-input-wrap\">\r\n        <label for=\"email\" class=\"ani-label\">Почта *<\/label>\r\n        <input id=\"email\" type=\"email\" name=\"data[email]\" required class=\"client-mail ani-input\">\r\n    <\/div>\r\n    <div class=\"btn-holder\">\r\n        <button type=\"submit\" class=\"btn\">Оставить заявку<\/button>\r\n    <\/div>\r\n    <div class=\"form-agree align-left\">\r\n        <label class=\"checkbox-label form-agree-check checked\">\r\n            <input class=\"accent-check\" type=\"checkbox\" checked>\r\n            Настоящим подтверждаю, что ознакомлен и согласен с условиями <a href=\"#\" class=\"open-text-modal agree-link\" data-id=\"1\">политики конфиденциальности.<\/a>\r\n        <\/label>\r\n    <\/div>\r\n<\/form>\r\n",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

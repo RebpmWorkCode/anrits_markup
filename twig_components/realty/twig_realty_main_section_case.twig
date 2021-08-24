@@ -1,0 +1,43 @@
+<section class="section-case" id="case">
+    <div class="container">
+        <h2>Последние объявления</h2>
+        <div class="row row-3 case-items-block">
+            {% set favorite = _view.loadHelper('Favorites.Favorite') %}
+            {{ adView.setDefaults({default_picture: '/uploads/assets/images/case-image-mob.jpg'}) }}
+            {% for item in hotOffers %}
+                {% set offerItem = adView.getInfo(item) %}
+                <div class="col-1-3 col-xs-1">
+                    <a href="{{ html.url(offerItem.url) }}" class="case-item" title="{{ adSeo.pattern_title(item)|e }}">
+                        {% set favoriteActiveClass = '' %}
+                        {% set favoriteAction = 'add' %}
+                        {% if favorite.has('Advertisement', item.Advertisement.id) %}
+                            {% set favoriteActiveClass = ' active' %}
+                            {% set favoriteAction = 'remove' %}
+                        {% endif %}
+                        {{ html.tag('div', '', {
+                            'class': 'favorites-action star' ~ favoriteActiveClass,
+                            'escape': false,
+                            'data-model': 'Advertisement',
+                            'data-id': item.Advertisement.id,
+                            'data-action': favoriteAction
+                        }) }}
+                        <div class="case-id">id {{ item.Advertisement.id }}</div>
+                        <picture class="case-image-wrap">
+                            {% set gallery = adView.getGallery(item) %}
+                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_list'}) %}
+                            <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
+                        </picture>
+                        <div class="case-content">
+                            <div class="case-title">{{ item.Advertisement.location_full|e }}</div>
+                            <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
+                            <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn-holder spoiler-holder align-center">
+            <a href="/agency/realty" class="btn-spoiler">+ Показать больше</a>
+        </div>
+    </div>
+</section>

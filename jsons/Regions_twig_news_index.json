@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "twig News list",
+            "alias": "twig_news_index",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "Twig | Список новостей",
+                "alias": "twig_news_index",
+                "body": "<section class=\"section-news\" id=\"news\">\r\n    <div class=\"container\">\r\n        <ul class=\"breadcrumbs not-marked nav\">\r\n            <li><a href=\"\/\" class=\"breadcrumbs-link\"><svg class=\"svg-icon smart-home-icon\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewBox=\"0 0 223 193.5\"><path class=\"st0\" d=\"M204.5,79.3l-86-76.7c-4-3.5-9.9-3.5-13.9,0l-86,76.7c-2.2,2-3.5,4.8-3.5,7.8v96c0,5.8,4.7,10.4,10.4,10.4 h172.1c5.8,0,10.4-4.7,10.4-10.4v-96C208,84.1,206.7,81.3,204.5,79.3L204.5,79.3z M187.1,172.6H35.9V91.8l75.6-67.4l75.6,67.4 V172.6L187.1,172.6z\"\/><\/svg><\/a><\/li>\r\n            <li><a href=\"#\" class=\"breadcrumbs-link dark\">Новости<\/a><\/li>\r\n        <\/ul>\r\n        <div class=\"title-normal title-min-size\"><h2>Новости<\/h2><\/div>\r\n        {% set rusTime = _view.loadHelper('Fastadmin.RusTime') %}\r\n        {% for newGroup in news|batch(2) %}\r\n            <div class=\"row row-2\">\r\n                {% for newItem in newGroup %}\r\n                    <div class=\"col-1-2 col-xs-1\">\r\n                        <a href=\"\/news\/news\/view\/{{ newItem.News.id }}\" class=\"news-item\">\r\n                            {% if newItem.News.picture %}\r\n                                <div class=\"news-image-wrap\">\r\n                                    <img src=\"{{ '\/'~newItem.News.picture|trim('\/', 'right') }}\" class=\"news-image\" alt=\" \">\r\n                                <\/div>\r\n                            {% endif %}\r\n                            <div class=\"news-date\">{{ rusTime.formatDate(newItem.News.date, 'j F Y') }}<\/div>\r\n                            <div class=\"news-title\">{{ newItem.News.title }}<\/div>\r\n                        <\/a>\r\n                    <\/div>\r\n                {% endfor %}\r\n            <\/div>\r\n        {% endfor %}\r\n    <\/div>\r\n<\/section>\r\n",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

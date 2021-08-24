@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "Twig | Просмотр контента",
+            "alias": "twig_nodes_view",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "Twig | Просмотр контента",
+                "alias": "twig_nodes_view",
+                "body": "<section class=\"section-text\" id=\"text\">\r\n    <div class=\"container\">\r\n        <ul class=\"breadcrumbs not-marked nav\">\r\n            <li><a href=\"\/\" class=\"breadcrumbs-link\">\r\n                <svg class=\"svg-icon smart-home-icon\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewBox=\"0 0 223 193.5\">\r\n                    <path class=\"st0\" d=\"M204.5,79.3l-86-76.7c-4-3.5-9.9-3.5-13.9,0l-86,76.7c-2.2,2-3.5,4.8-3.5,7.8v96c0,5.8,4.7,10.4,10.4,10.4 h172.1c5.8,0,10.4-4.7,10.4-10.4v-96C208,84.1,206.7,81.3,204.5,79.3L204.5,79.3z M187.1,172.6H35.9V91.8l75.6-67.4l75.6,67.4 V172.6L187.1,172.6z\"\/>\r\n                <\/svg>\r\n            <\/a><\/li>\r\n            <li><a href=\"#\" class=\"breadcrumbs-link dark\">{{ node.Node.title }}<\/a><\/li>\r\n        <\/ul>\r\n        <div class=\"text-block\">\r\n            {{ node.Node.body }}\r\n        <\/div>\r\n    <\/div>\r\n<\/section>\r\n",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

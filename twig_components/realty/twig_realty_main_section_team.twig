@@ -1,0 +1,46 @@
+<section class="section-team" id="team">
+    <div class="container">
+        <h2>Наши менеджеры</h2>
+        <div class="member-slider-wrap">
+            <div class="swiper-container member-slider">
+                <div class="swiper-wrapper">
+                    {% for userItem in usersForSite %}
+                        <div class="swiper-slide">
+                            <div class="member-item">
+                                <div class="member-image-wrap">
+                                    {% set userPicture = '/uploads/assets/images/team/1.jpg' %}
+                                    {% if userItem.User.image %}
+                                        {% set userPicture = '/'~userItem.User.image %}
+                                    {% endif %}
+                                    <img src="{{ userPicture }}" class="member-image" alt="">
+                                </div>
+                                <div class="member-name">{{ userItem.User.name }}</div>
+                                <div class="member-position">{{ userItem.UserPost.title }}</div>
+                                <a href="tel:{{ user.getPhoneLink(userItem) }}" class="member-phone dark">
+                                    <span class="phone-icon-wrap">
+                                        <svg class="svg-icon phone-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 459 459" xml:space="preserve"><path class="st0" d="M433.5,318.8c-30.6,0-61.2-5.1-91.8-15.3c-7.6-2.5-17.9,0-25.5,5.1l-56.1,56.1 c-71.4-35.7-130.1-96.9-168.3-168.3l56.1-56.1c7.6-7.6,10.2-17.8,5.1-25.5c-7.6-28.1-12.8-58.7-12.8-89.3 c0-15.3-10.2-25.5-25.5-25.5H25.5C10.2,0,0,10.2,0,25.5C0,265.2,193.8,459,433.5,459c15.3,0,25.5-10.2,25.5-25.5v-89.3 C459,329,448.8,318.8,433.5,318.8z"/></svg>
+                                    </span>
+                                    {{ user.getPhoneLink(userItem) }}
+                                </a>
+                                <a href="mailto:{{ userItem.User.email }}" class="member-email dark">{{ userItem.User.email }}</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="swiper-button-next member-button-next">
+                <svg class="svg-icon right-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3">
+                    <path class="st0" d="M51.7,185.3c-2.7,0-5.5-1-7.6-3.1c-4.2-4.2-4.2-11,0-15.2l74.4-74.3L44.1,18.3c-4.2-4.2-4.2-11,0-15.2 c4.2-4.2,11-4.2,15.2,0l81.9,81.9c4.2,4.2,4.2,11,0,15.2l-81.9,81.9C57.2,184.3,54.5,185.3,51.7,185.3z"/>
+                </svg>
+            </div>
+            <div class="swiper-button-prev member-button-prev">
+                <svg class="svg-icon left-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3">
+                    <path class="st0" d="M133.6,0c2.7,0,5.5,1,7.6,3.1c4.2,4.2,4.2,11,0,15.2L66.9,92.7l74.4,74.4c4.2,4.2,4.2,11,0,15.2 c-4.2,4.2-11,4.2-15.2,0l-81.9-81.9c-4.2-4.2-4.2-11,0-15.2L126,3.1C128.1,1,130.9,0,133.6,0z"/>
+                </svg>
+            </div>
+        </div>
+        <div class="btn-holder spoiler-holder align-center">
+            <a href="/users/users" class="btn-spoiler">+ Показать больше</a>
+        </div>
+    </div>
+</section>

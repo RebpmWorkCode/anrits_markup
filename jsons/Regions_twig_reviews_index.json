@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "twig Reviews list",
+            "alias": "twig_reviews_index",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "Twig | Список отзывов",
+                "alias": "twig_reviews_index",
+                "body": "<section class=\"section-reviews-all\" id=\"reviews-all\" style=\"min-height: 2000px\">\r\n    <div class=\"container\">\r\n        <ul class=\"breadcrumbs not-marked nav\">\r\n            <li><a href=\"\/\" class=\"breadcrumbs-link\"><svg class=\"svg-icon smart-home-icon\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewBox=\"0 0 223 193.5\"><path class=\"st0\" d=\"M204.5,79.3l-86-76.7c-4-3.5-9.9-3.5-13.9,0l-86,76.7c-2.2,2-3.5,4.8-3.5,7.8v96c0,5.8,4.7,10.4,10.4,10.4 h172.1c5.8,0,10.4-4.7,10.4-10.4v-96C208,84.1,206.7,81.3,204.5,79.3L204.5,79.3z M187.1,172.6H35.9V91.8l75.6-67.4l75.6,67.4 V172.6L187.1,172.6z\"\/><\/svg><\/a><\/li>\r\n            <li><a href=\"#\" class=\"breadcrumbs-link dark\">Отзывы<\/a><\/li>\r\n        <\/ul>\r\n        <div class=\"title-normal\"><h2>Отзывы<\/h2><\/div>\r\n        <div class=\"row\">\r\n            <div class=\"col-1-2 col-xs-1\" style=\"min-height: 1680px\">\r\n                {% for reviewItem in reviews %}\r\n                    <div class=\"review-item\" id=\"review-item-{{ reviewItem.Review.id }}\">\r\n                        <div class=\"review-author\">\r\n                            <div class=\"review-author-image-wrap\">\r\n                                {% if reviewItem.Review.picture %}\r\n                                    <img src=\"{{ '\/'~reviewItem.Review.picture|trim('\/', 'right') }}\" class=\"review-author-image\" alt=\" \">\r\n                                {% endif %}\r\n                            <\/div>\r\n                            <div class=\"review-author-name\">{{ reviewItem.Review.sender }}<\/div>\r\n                            <div class=\"review-author-status\" style=\"min-height: 36px\"><\/div>\r\n                        <\/div>\r\n                        <div class=\"review-text\">\r\n                            <p>{{ reviewItem.Review.text|striptags|e }}<\/p>\r\n                        <\/div>\r\n                    <\/div>\r\n                {% endfor %}\r\n            <\/div>\r\n            <div class=\"col-1-2 hidden-xs\">\r\n                <div class=\"review-add-form\">\r\n                    <div class=\"form-title\">Оставьте свой отзыв<\/div>\r\n                    <div class=\"form-subtitle\">Введите текст отзыва ниже и отправьте его нам.<\/div>\r\n                    {{ croogo_region alias = \"twig_form_review\" }}\r\n                <\/div>\r\n            <\/div>\r\n        <\/div>\r\n        <div class=\"align-center visible-xs\"><a href=\"#\" class=\"btn btn-transparent open-review-modal\">Добавить отзыв<\/a><\/div>\r\n    <\/div>\r\n<\/section>\r\n",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

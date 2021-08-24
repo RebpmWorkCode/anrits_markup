@@ -1,0 +1,21 @@
+[
+    {
+        "Region": {
+            "title": "Twig | Страница Ипотечный калькулятор",
+            "alias": "twig_services_mortgage_calculator",
+            "block_count": 1
+        },
+        "Block": [
+            {
+                "title": "Twig | Страница Ипотечный калькулятор",
+                "alias": "twig_services_mortgage_calculator",
+                "body": "{% set price = _view.loadHelper('Agency.Price') %}\r\n<section class=\"section-calc\" id=\"calc\">\r\n    <div class=\"container\">\r\n        <div class=\"calc-block\">\r\n            <div class=\"title-normal title-min-size\"><h2>Ипотечный калькулятор<\/h2><\/div>\r\n            {{ _view.loadHelper('Flash').render() }}\r\n            {{ form.create('Mortgage', {\r\n                'method': 'get',\r\n                'class': 'calc-values ani-input-wrap',\r\n                'inputDefaults': {'div': false, 'label': false}\r\n            }) }}\r\n                {{ form.input('amount', {'class': 'calc-value calc-value-summ placeholder-dark', 'placeholder': 'Сумма рублей'}) }}\r\n                {{ form.input('percentage', {'class': 'calc-value calc-value-percent placeholder-dark', 'placeholder': 'Процентная ставка'}) }}\r\n                {{ form.input('term', {'class': 'calc-value calc-value-time placeholder-dark', 'placeholder': 'Срок кредита, лет'}) }}\r\n                <button class=\"btn btn-calc\">Рассчитать<\/button>\r\n            {{ form.end() }}\r\n            {% if mortgage %}\r\n                {% if monthPayment %}<div class=\"calc-result\">Сумма ежемесячного платежа: <b class=\"calc-mount-result\">{{ price.format(monthPayment) }} ₽<\/b><\/div>{% endif %}\r\n                {% if overpayment %}<div class=\"calc-result\">Переплата по процентам за ипотеку: <b class=\"calc-percent-result\">{{ price.format(overpayment) }} ₽<\/b><\/div>{% endif %}\r\n                <table class=\"calc-table\">\r\n                    <tr>\r\n                        <th>Срок<\/th>\r\n                        <th>Основной долг (руб.)<\/th>\r\n                        <th>Начисленные проценты (руб.)<\/th>\r\n                        <th>Сумма платежа (руб.)<\/th>\r\n                    <\/tr>\r\n                    {% for monthItem in mortgage %}\r\n                        <tr>\r\n                            <td>{{ monthItem.number }} месяц<\/td>\r\n                            <td>{{ price.format(monthItem.remaining_amount) }}<\/td>\r\n                            <td>{{ price.format(monthItem.accrued_percentage) }}<\/td>\r\n                            <td>{{ price.format(monthItem.monthPayment) }}<\/td>\r\n                        <\/tr>\r\n                    {% endfor %}\r\n                <\/table>\r\n            {% endif %}\r\n        <\/div>\r\n    <\/div>\r\n<\/section>\r\n",
+                "status": true,
+                "params": "disabledCkEditor=1",
+                "show_title": false,
+                "visibility_roles": "",
+                "visibility_paths": ""
+            }
+        ]
+    }
+]

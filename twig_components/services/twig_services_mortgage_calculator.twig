@@ -1,0 +1,39 @@
+{% set price = _view.loadHelper('Agency.Price') %}
+<section class="section-calc" id="calc">
+    <div class="container">
+        <div class="calc-block">
+            <div class="title-normal title-min-size"><h2>Ипотечный калькулятор</h2></div>
+            {{ _view.loadHelper('Flash').render() }}
+            {{ form.create('Mortgage', {
+                'method': 'get',
+                'class': 'calc-values ani-input-wrap',
+                'inputDefaults': {'div': false, 'label': false}
+            }) }}
+                {{ form.input('amount', {'class': 'calc-value calc-value-summ placeholder-dark', 'placeholder': 'Сумма рублей'}) }}
+                {{ form.input('percentage', {'class': 'calc-value calc-value-percent placeholder-dark', 'placeholder': 'Процентная ставка'}) }}
+                {{ form.input('term', {'class': 'calc-value calc-value-time placeholder-dark', 'placeholder': 'Срок кредита, лет'}) }}
+                <button class="btn btn-calc">Рассчитать</button>
+            {{ form.end() }}
+            {% if mortgage %}
+                {% if monthPayment %}<div class="calc-result">Сумма ежемесячного платежа: <b class="calc-mount-result">{{ price.format(monthPayment) }} ₽</b></div>{% endif %}
+                {% if overpayment %}<div class="calc-result">Переплата по процентам за ипотеку: <b class="calc-percent-result">{{ price.format(overpayment) }} ₽</b></div>{% endif %}
+                <table class="calc-table">
+                    <tr>
+                        <th>Срок</th>
+                        <th>Основной долг (руб.)</th>
+                        <th>Начисленные проценты (руб.)</th>
+                        <th>Сумма платежа (руб.)</th>
+                    </tr>
+                    {% for monthItem in mortgage %}
+                        <tr>
+                            <td>{{ monthItem.number }} месяц</td>
+                            <td>{{ price.format(monthItem.remaining_amount) }}</td>
+                            <td>{{ price.format(monthItem.accrued_percentage) }}</td>
+                            <td>{{ price.format(monthItem.monthPayment) }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</section>
