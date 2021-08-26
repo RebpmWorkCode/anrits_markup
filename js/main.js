@@ -522,14 +522,14 @@ jQuery(function ($) {
 		}
 	});
 
-	$('.case-slide').click(function() {
-		if ($(this).hasClass('active')) {
-			$(this).removeClass('active');
-		}
-		else {
-			$(this).addClass('active');
-		}
-	});
+	// $('.case-slide').click(function() {
+	// 	if ($(this).hasClass('active')) {
+	// 		$(this).removeClass('active');
+	// 	}
+	// 	else {
+	// 		$(this).addClass('active');
+	// 	}
+	// });
 
 	$('.show-map-add-case').click(function() {
 		let th = $(this);

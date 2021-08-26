@@ -3,7 +3,7 @@
 {% set favoriteButtonWrapperClass = '' %}
 {% set phoneClass = 'light' %}
 {% set logoPath = 'logo.png' %}
-{% if (_view.request.controller == 'realty' and _view.request.action == 'view') %}
+{% if (_view.request.controller == 'realty' and (_view.request.action == 'view' or _view.request.action == 'view_slug')) %}
     {% set headerClass = 'layout-header dark' %}
     {% set favoriteButton = true %}
     {% set favoriteButtonWrapperClass = 'selected-count light' %}
