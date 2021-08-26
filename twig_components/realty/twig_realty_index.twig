@@ -107,14 +107,20 @@
                     <div class="row">
                         <div class="col-1-4 col-xs-1-2">
                             <ul class="check-list-case not-marked">
+                                {% set checkboxFields = checkboxFields|merge({'search_photo': {
+                                    'param-id': 'search_photo',
+                                    'label': 'Наличие фото',
+                                    'value': 'with'
+                                }}) %}
                                 {% for alias,checkbox in checkboxFields %}
-                                    <li class="{{ complexCategorySearch.getClassesFilter(null, checkbox)|join(' ')|replace({'input ': ''}) }}">
+                                    <li>
                                         <label>
                                             {{ form.checkbox('Advertisement.' ~ attribute(checkbox, 'param-id'), {
                                                 'hidden': true,
                                                 'div': false,
                                                 'label': false,
                                                 'hiddenField': false,
+                                                'value': checkbox.value ?? '1'
                                             }) }} {{ checkbox.label }}
                                         </label>
                                     </li>
@@ -125,7 +131,7 @@
                 </div>
                 <div class="row filter-control-block">
                     <div class="col-1-6 col-xs-1">
-                        <button type="reset" class="filter-default">
+                        <button type="button" class="JS-clean-values filter-default">
                             Сбросить фильтр <svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64">
                                 <path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/>
                             </svg>
@@ -193,7 +199,7 @@
                 {{ html.scriptEnd() }}
             </div>
             <div class="result-items-case">
-                <div class="row row-3 case-items-block">
+                <div class="row row-3 case-items-block" id="appendLoadObjects">
                     {{ adView.setDefaults({default_picture: config.Site.no_photo_image}) }}
                     {% for item in list %}
                         {% set offerItem = adView.getInfo(item) %}
@@ -228,6 +234,13 @@
                     {% endfor %}
                 </div>
             </div>
+            <div class="spoiler-holder align-center">
+                <button type="button" class="btn-spoiler no-fix-w" data-load-objects>+ Показать ещё</button>
+            </div>
         </div>
     </div>
 </section>
+<script>
+    window.paginator_url = '{{ adList.paginateAjaxUrl() }}';
+    window.paginator_limit = {{ paginator.params().pageCount }};
+</script>

@@ -637,19 +637,53 @@ jQuery(function ($) {
 
     let categoriesParams =  $('.params-filter');
     if(categoriesParams.length > 0){
-        categoriesParams.addClass('hidden');
-        let categoryId = $('[name="data[Advertisement][category_id]"]:checked')
+        let hideCategoryParams = () => { categoriesParams.addClass('hidden'); };
+        let showCategoryParams = (categoryId, rentValue) => {
+            let classRent = '';
+            switch (rentValue) {
+                case 'rent':
+                    classRent = `._r1-${categoryId}`;
+                    break;
+                case 'sale':
+                default:
+                    classRent = `._r0-${categoryId}`;
+                    break;
+            }
+            let s = `.params-filter.category-${categoryId}${classRent}`;
+            console.log(s);
+            $(s).removeClass('hidden');
+        }
+        hideCategoryParams();
+        let categoryId = $('[name="data[Advertisement][category_id]"]:checked');
+        let rent = $('[name="data[Advertisement][rent]"]:checked');
         if(categoryId.val()) {
-            $(`.params-filter.category-${categoryId.val()}`).removeClass('hidden');
+            showCategoryParams(categoryId.val(), rent.val())
         }
         $('[name="data[Advertisement][category_id]"]').on('change', function (e) {
-            categoriesParams.addClass('hidden');
-            let categoryId = $('[name="data[Advertisement][category_id]"]:checked')
-            $(`.params-filter.category-${categoryId.val()}`).removeClass('hidden');
+            hideCategoryParams();
+            let categoryId = $('[name="data[Advertisement][category_id]"]:checked');
+            let rent = $('[name="data[Advertisement][rent]"]:checked');
+            showCategoryParams(categoryId.val(), rent.val())
         });
+        $('[name="data[Advertisement][rent]"]').on('change', function (e) {
+            hideCategoryParams();
+            let categoryId = $('[name="data[Advertisement][category_id]"]:checked');
+            let rent = $('[name="data[Advertisement][rent]"]:checked');
+            showCategoryParams(categoryId.val(), rent.val())
+        });
+
     }
-    $('button[type="reset"].filter-default').on('click', function (e) {
-        categoriesParams.addClass('hidden');
+    $('.JS-clean-values').on('click', function (e) {
+        let form = $(this).closest('form');
+        $('select', form).val('');
+        $('select', form).trigger('change')
+        $('textarea', form).val('');
+        $('textarea', form).trigger('change')
+        $('input:not([type="radio"])', form).val('');
+        $('input:not([type="radio"])', form).trigger('change')
+        $('input[type="checkbox"]', form).attr('checked', false);
+        $('input[type="checkbox"]', form).trigger('change');
+        form.trigger('clearValues');
     })
 
     let loadParams = function (categoryId) {
@@ -703,7 +737,29 @@ jQuery(function ($) {
                 toInput.val(ui.values[1]);
             }
         });
+        slider.closest('form').on('clearValues', e => {
+            slider.slider({"values": [min, max]});
+        })
         $(`.case-range-${field}-min`).text(`от ${slider.slider('values', 0)}`);
         $(`.case-range-${field}-max`).text(`от ${slider.slider('values', 1)}`);
+    })
+
+    let numericList = 1, linkListUrl = '';
+    $('[data-load-objects]').on('click', e => {
+        numericList++;
+        linkListUrl = window.paginator_url.replace('page-id', numericList);
+        if (numericList < window.paginator_limit) {
+            $.ajax({
+                type: "GET",
+                url: linkListUrl,
+                dataType: "html",
+                success: function (data) {
+                    let objects = $(data).find('#appendLoadObjects > *');
+                    $('#appendLoadObjects').append(objects);
+                }
+            })
+        } else {
+            $('[data-load-objects]').closest('.spoiler-holder').addClass('hidden');
+        }
     })
 });
