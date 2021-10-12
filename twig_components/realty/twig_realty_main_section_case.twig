@@ -24,11 +24,11 @@
                         <div class="case-id">id {{ item.Advertisement.id }}</div>
                         <picture class="case-image-wrap">
                             {% set gallery = adView.getGallery(item) %}
-                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_list'}) %}
+                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'crop', 'paddings': false, 'folder': 'twig_crop_realty_list'}) %}
                             <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
                         </picture>
                         <div class="case-content">
-                            <div class="case-title">{{ item.Advertisement.location_full|e }}</div>
+                            <div class="case-title">{{ item.Advertisement.location_full|e|slice(0, 30) }}...</div>
                             <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
                             <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
                         </div>

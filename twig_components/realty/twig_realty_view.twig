@@ -21,9 +21,10 @@
             <div class="col-2-3 col-xs-1">
                 {% set gallery = adView.getGallery(advertisement) %}
                 {% set galleryList = gallery.items ?: [gallery.first] %}
+                {% set galleryMaxList = imageResized.resizePicture(galleryList, {'width': '716', 'height': '496', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_view_max'}) %}
                 <div class="swiper-container case-slider-top">
                     <div class="swiper-wrapper">
-                        {% for galleryItem in galleryList %}
+                        {% for galleryItem in galleryMaxList %}
                             <div class="swiper-slide case-slide">
                                 {% set favoriteActiveClass = '' %}
                                 {% set favoriteAction = 'add' %}
@@ -46,7 +47,8 @@
                 <div class="case-slider-thumbs-wrap">
                     <div class="swiper-container case-slider-thumbs">
                         <div class="swiper-wrapper">
-                            {% for galleryItem in galleryList %}
+                            {% set galleryMiniList = imageResized.resizePicture(galleryList, {'width': '140', 'height': '118', 'mode': 'crop', 'paddings': false, 'folder': 'twig_crop_realty_view_mini'}) %}
+                            {% for galleryItem in galleryMiniList %}
                                 <div class="swiper-slide">
                                     <img src="{{ galleryItem.src }}" alt="{{ galleryItem.description }}" class="case-slide-image-thumb">
                                 </div>

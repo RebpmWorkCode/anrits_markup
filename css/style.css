@@ -4813,8 +4813,8 @@ html.si-lock2 {
   border: 4px solid #fff;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   margin: 70px auto 28px; }
-  .review-slide .review-slide-author .review-author-image-wrap .review-author-image {
-    max-width: none; }
+  /*.review-slide .review-slide-author .review-author-image-wrap .review-author-image {
+    max-width: none; }*/
 
 .review-slide .review-slide-author .review-author-name {
   font: 500 21px/22px 'Stem Med', sans-serif;
@@ -5788,8 +5788,8 @@ html.si-lock2 {
       position: absolute;
       top: 0;
       left: 0; }
-      .review-item .review-author .review-author-image-wrap .review-author-image {
-        max-width: none; }
+      /*.review-item .review-author .review-author-image-wrap .review-author-image {
+        max-width: none; }*/
     .review-item .review-author .review-author-name {
       font: 500 21px/22px 'Stem Med', sans-serif;
       color: #2c2c2c;

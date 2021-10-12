@@ -12,3 +12,11 @@
 #flashMessage.message.error {color: #842029;background-color: #f8d7da;border-color: #f5c2c7;}
 
 .star,.star.active,.case-item .star {    background-color: grey !important;}
+
+.agent-block .agent-image-wrap .agent-image {
+    height: inherit;
+}
+
+.section-case-card .swiper-slide{
+    text-align: center;
+}

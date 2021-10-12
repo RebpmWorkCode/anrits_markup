@@ -557,6 +557,7 @@ jQuery(function ($) {
 			th.addClass('active');
 			$('.choice-case-map').slideToggle();
 		}
+        Is2bMap.map.setZoom(9);
 	});
 
 	//hide btn reviews all
@@ -609,7 +610,7 @@ jQuery(function ($) {
     })
 
 
-    $('[data-field^="Location."]').select2('destroy');
+    $('select[data-field^="Location."]').select2('destroy');
     Location.init('[data-field^="Location."]');
 
     $('.favorites-action').off('click');
@@ -748,7 +749,7 @@ jQuery(function ($) {
     $('[data-load-objects]').on('click', e => {
         numericList++;
         linkListUrl = window.paginator_url.replace('page-id', numericList);
-        if (numericList < window.paginator_limit) {
+        if (numericList <= window.paginator_limit) {
             $.ajax({
                 type: "GET",
                 url: linkListUrl,
@@ -760,6 +761,26 @@ jQuery(function ($) {
             })
         } else {
             $('[data-load-objects]').closest('.spoiler-holder').addClass('hidden');
+        }
+    })
+
+
+    let numericUserList = 1, linkListUserUrl = '';
+    $('[data-load-users]').on('click', e => {
+        numericUserList++;
+        linkListUserUrl = window.paginator_user_url.replace('page-id', numericUserList);
+        if (numericUserList <= window.paginator_user_limit) {
+            $.ajax({
+                type: "GET",
+                url: linkListUserUrl,
+                dataType: "html",
+                success: function (data) {
+                    let objects = $(data).find('#appendLoadUsers > *');
+                    $('#appendLoadUsers').append(objects);
+                }
+            })
+        } else {
+            $('[data-load-users]').closest('.spoiler-holder').addClass('hidden');
         }
     })
 });

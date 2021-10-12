@@ -28,6 +28,7 @@
                 </ul>
                 <div class="hidden-params" style="display: none">
                     <div class="row select-block">
+                        {% set searchView = _view.loadHelper('Search.SearchView') %}
                         {{ searchView.renderField('Advertisement.district_id', attribute(searchFields, 'Advertisement.district_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
                         {{ searchView.renderField('Advertisement.locality_id', attribute(searchFields, 'Advertisement.locality_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
                         {{ searchView.renderField('Advertisement.sub_locality_id', attribute(searchFields, 'Advertisement.sub_locality_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
@@ -59,8 +60,9 @@
                     {% for slidersBatch in slidersFields|batch(2) %}
                         <div class="row range-price-space-block">
                             {% for alias,field in slidersBatch %}
+                                {% set originalAlias = alias %}
                                 {% set alias = alias|replace({'Advertisement.': ''}) %}
-                                <div class="col-1-2 col-xs-1 {{ complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
+                                <div class="col-1-2 col-xs-1 {{ ('Advertisement' in originalAlias) ? '' : complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
                                     <div class="choice-case-title">{{ field.label }}</div>
                                     <div class="case-range case-range-{{ alias }}">
                                         {{ form.hidden('Advertisement.' ~ alias ~ '_from', {'class': 'filter-from'} )}}
@@ -149,7 +151,7 @@
                 </div>
             {{ form.end() }}
             <div class="choice-case-map hide">
-                {{ html.script(['https://api-maps.yandex.ru/2.1/?lang=ru_RU', 'Agency.filter-map-site', 'YandexMaps.simplify'], {'inline': false}) }}
+                {{ html.script(['Agency.filter-map-site', 'YandexMaps.simplify'], {'inline': false}) }}
                 <div class="map-choice-wrap" id="map-list"></div>
                 {{ html.scriptStart({'inline': false, 'safe': false}) }}
                 let KlasterIs2bMapSite = {
@@ -221,13 +223,13 @@
                                 <div class="case-id">id {{ item.Advertisement.id }}</div>
                                 <picture class="case-image-wrap">
                                     {% set gallery = adView.getGallery(item) %}
-                                    {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_list'}) %}
+                                    {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'crop', 'paddings': false, 'folder': 'twig_crop_realty_list'}) %}
                                     <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
                                 </picture>
                                 <div class="case-content">
-                                    <div class="case-title">{{ item.Advertisement.location_full|e }}</div>
+                                    <div class="case-title">{{ item.Advertisement.location_full|e|slice(0, 30) }}...</div>
                                     <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
-                                    <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
+                                    <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 35) }}...</div>
                                 </div>
                             </a>
                         </div>
