@@ -163,6 +163,8 @@ jQuery(function ($) {
         SIModals.attachModal('.open-phone-modal', '.phone-modal', {'.send-extra': 'extra'});
         SIModals.attachModal('.open-mortgage-modal', '.mortgage-modal', {'.send-extra': 'extra'});
         SIModals.attachModal('.open-review-modal', '.review-modal', {'.send-extra': 'extra'});
+        SIModals.attachModal('.open-gift-modal', '.gift-modal', {'.send-extra': 'extra'});
+        SIModals.attachModal('.open-spinner-modal', '.spinner-modal', {'.send-extra': 'extra'});
         SIModals.attachModal('.open-text-modal', '.text-modal', false, function () {
             return '.text-modal-' + $(this).data('id');
         });

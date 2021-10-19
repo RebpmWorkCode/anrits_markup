@@ -3,22 +3,22 @@
 {% if flashOut %}
     {% set result = {} %}
     {% if flashOut matches '/message success/' %}
-        {% set result = {'success': true, 'original': flashOut} %}
+        {% set result = {'success': true} %}
     {% else %}
         {% set text = flashOut|replace({'<div id="flashMessage" class="message error">': '', '</div>': ''})|trim %}
-        {% set result = {'success': false, 'original': flashOut, text: text} %}
+        {% set result = {'success': false, text: text} %}
     {% endif %}
     {{ result|json_encode }}
 {% else %}
     {{ form.create('FeedbackMessage', {
-        'url': {'plugin': 'feedback', 'controller': 'feedback', 'action': 'send', '0': 'order_call'},
-        'id': 'FeedbackMessageSendFormOrderCall',
+        'url': {'plugin': 'feedback', 'controller': 'feedback', 'action': 'send', '0': 'gift_form'},
+        'id': 'FeedbackMessageSendFormGiftForm',
         'class': 'send-form',
         'autocomplete': 'off',
         'inputDefaults': {'div': 'ani-input-wrap'}
     }) }}
     {{ form.input('name', {
-        'id': 'FeedbackMessageNameOrderCall',
+        'id': 'FeedbackMessageSendFormGiftForm',
         'label': {'class': 'ani-label', 'text': 'Имя *'},
         'class': 'client-name ani-input',
         'type': 'text',
@@ -26,23 +26,18 @@
     }) }}
     {{ form.input('phone', {
         'label': {'class': 'ani-label', 'text': 'Телефон *'},
-        'id': 'FeedbackMessagePhoneOrderCall',
+        'id': 'FeedbackMessageSendFormGiftForm',
         'class': 'client-phone ani-input',
         'required': true,
         'type': 'tel'
     }) }}
-    {{ form.input('message', {
-        'label': {'class': 'ani-label', 'text': 'Ваше сообщение *'},
-        'id': 'FeedbackMessageMessageOrderCall',
-        'class': 'client-message',
-        'required': true,
-        'rows': 3,
-        'type': 'textarea'
+    {{ form.input('user_gift_text', {
+        'type': 'hidden'
     }) }}
     <div class="btn-holder">
-        <button type="submit" class="btn">Оставить заявку</button>
+        <button type="submit" class="btn ">Испытай удачу</button>
         {% if recaptcha.hasKey() %}
-            {{ recaptcha.display_form({'id': 'order_call', 'div': 'recaptcha-block'}) }}
+            {{ recaptcha.display_form({'id': 'gift_form', 'div': 'recaptcha-block'}) }}
         {% endif %}
     </div>
     <div class="form-agree align-left">

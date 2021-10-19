@@ -1,15 +1,16 @@
 <section class="section-team" id="team">
     <div class="container">
-        <h2>Наши менеджеры</h2>
+        <h2>Лучшие в этом месяце</h2>
         <div class="member-slider-wrap">
             <div class="swiper-container member-slider">
                 <div class="swiper-wrapper">
-                    {% for userItem in usersForSite %}
+                    {% for userItem in bestWorkers %}
+
                         <div class="swiper-slide">
                             <div class="member-item">
                                 <div class="member-image-wrap">
                                     {% set userPicture = '/uploads/assets/images/team/1.jpg' %}
-                                    {% if userItem.User.image %}
+                                    {% if userItem.User.image|default %}
                                         {% set userPicture = '/'~userItem.User.image %}
                                     {% endif %}
                                     <img src="{{ userPicture }}" class="member-image" alt="">
@@ -25,18 +26,15 @@
                                 <a href="mailto:{{ userItem.User.email }}" class="member-email dark">{{ userItem.User.email }}</a>
                             </div>
                         </div>
+
                     {% endfor %}
                 </div>
             </div>
             <div class="swiper-button-next member-button-next">
-                <svg class="svg-icon right-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3">
-                    <path class="st0" d="M51.7,185.3c-2.7,0-5.5-1-7.6-3.1c-4.2-4.2-4.2-11,0-15.2l74.4-74.3L44.1,18.3c-4.2-4.2-4.2-11,0-15.2 c4.2-4.2,11-4.2,15.2,0l81.9,81.9c4.2,4.2,4.2,11,0,15.2l-81.9,81.9C57.2,184.3,54.5,185.3,51.7,185.3z"/>
-                </svg>
+                <svg class="svg-icon right-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3"><path class="st0" d="M51.7,185.3c-2.7,0-5.5-1-7.6-3.1c-4.2-4.2-4.2-11,0-15.2l74.4-74.3L44.1,18.3c-4.2-4.2-4.2-11,0-15.2 c4.2-4.2,11-4.2,15.2,0l81.9,81.9c4.2,4.2,4.2,11,0,15.2l-81.9,81.9C57.2,184.3,54.5,185.3,51.7,185.3z"/></svg>
             </div>
             <div class="swiper-button-prev member-button-prev">
-                <svg class="svg-icon left-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3">
-                    <path class="st0" d="M133.6,0c2.7,0,5.5,1,7.6,3.1c4.2,4.2,4.2,11,0,15.2L66.9,92.7l74.4,74.4c4.2,4.2,4.2,11,0,15.2 c-4.2,4.2-11,4.2-15.2,0l-81.9-81.9c-4.2-4.2-4.2-11,0-15.2L126,3.1C128.1,1,130.9,0,133.6,0z"/>
-                </svg>
+                <svg class="svg-icon left-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3"><path class="st0" d="M133.6,0c2.7,0,5.5,1,7.6,3.1c4.2,4.2,4.2,11,0,15.2L66.9,92.7l74.4,74.4c4.2,4.2,4.2,11,0,15.2 c-4.2,4.2-11,4.2-15.2,0l-81.9-81.9c-4.2-4.2-4.2-11,0-15.2L126,3.1C128.1,1,130.9,0,133.6,0z"/></svg>
             </div>
         </div>
         <div class="btn-holder spoiler-holder align-center">

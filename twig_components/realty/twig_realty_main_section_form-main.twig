@@ -8,45 +8,45 @@
                 'class': 'send-form',
                 'autocomplete': 'off',
             }) }}
-                {{ form.input('name', {
-                    'label': false,
-                    'id': 'FeedbackMessageNameOrderCallFormMain',
-                    'class': 'client-name',
-                    'type': 'text',
-                    'placeholder': 'Ваше имя',
-                }) }}
-                {{ form.input('phone', {
-                    'label': false,
-                    'id': 'FeedbackMessagePhoneOrderCallFormMain',
-                    'class': 'client-phone',
-                    'placeholder': 'Ваш телефон',
-                    'type': 'tel'
-                }) }}
-                {{ form.input('email', {
-                    'label': false,
-                    'id': 'FeedbackMessagePhoneOrderCallFormMain',
-                    'class': 'client-mail',
-                    'placeholder': 'E-mail',
-                    'type': 'email'
-                }) }}
-                <div class="form-agree align-left">
-                    <label class="checkbox-label form-agree-check checked">
-                        {{ form.checkbox('confirmation', {
-                            'checked': true,
-                            'id': 'FeedbackMessageConfirmationOrderCallFormMain',
-                            'hiddenField': false,
-                            'value': 1,
-                        }) }}
-                        Настоящим подтверждаю, что ознакомлен и согласен с условиями <a href="#" class="open-text-modal agree-link" data-id="1">политики конфиденциальности.</a>
-                    </label>
-                </div>
+            {{ form.input('name', {
+                'label': false,
+                'id': 'FeedbackMessageNameOrderCallFormMain',
+                'class': 'client-name',
+                'type': 'text',
+                'placeholder': 'Ваше имя',
+            }) }}
+            {{ form.input('phone', {
+                'label': false,
+                'id': 'FeedbackMessagePhoneOrderCallFormMain',
+                'class': 'client-phone',
+                'placeholder': 'Ваш телефон',
+                'type': 'tel'
+            }) }}
+            {{ form.input('email', {
+                'label': false,
+                'id': 'FeedbackMessagePhoneOrderCallFormMain',
+                'class': 'client-mail',
+                'placeholder': 'E-mail',
+                'type': 'email'
+            }) }}
+            <div class="form-agree align-left">
+                <label class="checkbox-label form-agree-check checked">
+                    {{ form.checkbox('confirmation', {
+                        'checked': true,
+                        'id': 'FeedbackMessageConfirmationOrderCallFormMain',
+                        'hiddenField': false,
+                        'value': 1,
+                    }) }}
+                    Настоящим подтверждаю, что ознакомлен и согласен с условиями <a href="#" class="open-text-modal agree-link" data-id="1">политики конфиденциальности.</a>
+                </label>
+            </div>
 
-                <div class="btn-holder">
-                    <button type="submit" class="btn">Заказать консультацию</button>
-                    {% if recaptcha.hasKey() %}
-                        {{ recaptcha.display_form({'id': 'order_call', 'div': 'recaptcha-block'}) }}
-                    {% endif %}
-                </div>
+            <div class="btn-holder">
+                <button type="submit" class="btn">Заказать консультацию</button>
+                {% if recaptcha.hasKey() %}
+                    {{ recaptcha.display_form({'id': 'order_call', 'div': 'recaptcha-block'}) }}
+                {% endif %}
+            </div>
             {{ form.end() }}
         </div>
     </div>

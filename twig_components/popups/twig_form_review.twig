@@ -10,12 +10,12 @@
     {% endif %}
     {{ result|json_encode }}
 {% else %}
-{{ form.create('Review', {
-    'url': {'plugin': 'reviews', 'controller': 'reviews', 'action': 'add'},
-    'class': 'send-form',
-    'autocomplete': 'off',
-    'inputDefaults': {'div': 'ani-input-wrap'}
-}) }}
+    {{ form.create('Review', {
+        'url': {'plugin': 'reviews', 'controller': 'reviews', 'action': 'add'},
+        'class': 'send-form',
+        'autocomplete': 'off',
+        'inputDefaults': {'div': 'ani-input-wrap'}
+    }) }}
     {% set requiredLabel = '<span class="accent-star">*</span>' %}
     {{ form.input('sender', {
         'label': {'class': 'ani-label', 'text': 'Автор ' ~ requiredLabel},
@@ -54,5 +54,5 @@
             <input class="accent-check" type="checkbox" checked>Настоящим подтверждаю, что ознакомлен и согласен с условиями <a href="#" class="open-text-modal agree-link" data-id="1">политики конфиденциальности.</a>
         </label>
     </div>
-{{ form.end() }}
+    {{ form.end() }}
 {% endif %}

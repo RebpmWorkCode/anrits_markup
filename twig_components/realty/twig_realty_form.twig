@@ -19,159 +19,159 @@
             {{ form.hidden('from_site', {'value': true}) }}
             {{ form.hidden('contractor_id') }}
             {{ form.hidden('Contractor.0.id') }}
-                <div class="row">
-                    <div class="col-1-2 col-xs-1">
-                        <div class="row">
-                            <div class="col-1-2">{{ form.input('category_id') }}</div>
-                            <div class="col-1-2">
-                                {{ form.input('rent', {
-                                    'label': {'class': 'label-title', 'text': 'Продажа / Аренда'},
-                                    'options': {
-                                        0: 'Продажа',
-                                        1: 'Аренда'
-                                    }
-                                }) }}
-                            </div>
+            <div class="row">
+                <div class="col-1-2 col-xs-1">
+                    <div class="row">
+                        <div class="col-1-2">{{ form.input('category_id') }}</div>
+                        <div class="col-1-2">
+                            {{ form.input('rent', {
+                                'label': {'class': 'label-title', 'text': 'Продажа / Аренда'},
+                                'options': {
+                                    0: 'Продажа',
+                                    1: 'Аренда'
+                                }
+                            }) }}
                         </div>
-                        {% set locationFormEdit = _view.loadHelper('Locations.LocationFormEdit') %}
-                        {{ form.input('Location.location_region_id', {
-                            'data-field': 'Location.location_region_id',
-                            'data-placeholder': location.getPlaceholder('LocationRegion'),
-                            'data-source': '/locations/data/index/LocationRegion',
-                            'empty': true,
-                            'options': locationFormEdit.getValues('LocationRegion'),
-                            'class': 'JS-location-region location-select2',
-                            'required': location.hasRequiredField('LocationRegion'),
-                            'default': location.getDefault('LocationRegion'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('LocationRegion', location.hasRequiredField('LocationRegion'))},
-                        }) }}
-                        {{ form.input('Location.district_id', {
-                            'data-field': 'Location.district_id',
-                            'data-placeholder': location.getPlaceholder('District'),
-                            'data-source': '/locations/data/index/District/location_region:',
-                            'data-depends': '.JS-location-region',
-                            'empty': true,
-                            'options': locationFormEdit.getValues('District'),
-                            'class': 'JS-district location-select2',
-                            'required': location.hasRequiredField('District'),
-                            'default': location.getDefault('District'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('District', location.hasRequiredField('District'))},
-                        }) }}
-                        {{ form.input('Location.locality_id', {
-                            'data-field': 'Location.locality_id',
-                            'data-placeholder': location.getPlaceholder('Locality'),
-                            'data-source': '/locations/data/index/Locality/district:',
-                            'data-depends': '.JS-district',
-                            'empty': true,
-                            'options': locationFormEdit.getValues('Locality'),
-                            'class': 'JS-locality location-select2',
-                            'required': location.hasRequiredField('Locality'),
-                            'default': location.getDefault('Locality'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('Locality', location.hasRequiredField('Locality'))},
-                        }) }}
-                        {{ form.input('Location.sub_locality_id', {
-                            'data-field': 'Location.sub_locality_id',
-                            'data-placeholder': location.getPlaceholder('SubLocality'),
-                            'data-source': '/locations/data/index/SubLocality/locality:',
-                            'data-depends': '.JS-locality',
-                            'empty': true,
-                            'options': locationFormEdit.getValues('SubLocality'),
-                            'class': 'JS-sub-locality location-select2',
-                            'required': location.hasRequiredField('SubLocality'),
-                            'default': location.getDefault('SubLocality'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('SubLocality', location.hasRequiredField('SubLocality'))},
-                        }) }}
-                        {{ form.input('Location.street_id', {
-                            'data-field': 'Location.street_id',
-                            'data-placeholder': location.getPlaceholder('Street'),
-                            'data-source': '/locations/data/index/Street/locality:',
-                            'data-depends': '.JS-locality',
-                            'empty': true,
-                            'options': locationFormEdit.getValues('Street'),
-                            'class': 'JS-street location-select2',
-                            'required': location.hasRequiredField('Street'),
-                            'default': location.getDefault('Street'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('Street', location.hasRequiredField('Street'))},
-                        }) }}
-                        {{ form.input('Location.house_number', {
-                            'data-field': 'Location.house_number',
-                            'class': 'JS-house-number input-normal',
-                            'required': location.hasRequiredField('HouseNumber'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('HouseNumber', location.hasRequiredField('HouseNumber'))},
-                        }) }}
-                        {{ form.input('Advertisement.apartment', {
-                            'data-field': 'Advertisement.apartment',
-                            'class': 'JS-apartment input-normal',
-                            'data-categories': location.getCategoriesShowField('apartment', 'json', 7),
-                            'required': location.hasRequiredField('ApartmentNumber'),
-                            'label': {'class': 'label-title', 'text': location.getLabel('ApartmentNumber', location.hasRequiredField('ApartmentNumber'))},
-                        }) }}
+                    </div>
+                    {% set locationFormEdit = _view.loadHelper('Locations.LocationFormEdit') %}
+                    {{ form.input('Location.location_region_id', {
+                        'data-field': 'Location.location_region_id',
+                        'data-placeholder': location.getPlaceholder('LocationRegion'),
+                        'data-source': '/locations/data/index/LocationRegion',
+                        'empty': true,
+                        'options': locationFormEdit.getValues('LocationRegion'),
+                        'class': 'JS-location-region location-select2',
+                        'required': location.hasRequiredField('LocationRegion'),
+                        'default': location.getDefault('LocationRegion'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('LocationRegion', location.hasRequiredField('LocationRegion'))},
+                    }) }}
+                    {{ form.input('Location.district_id', {
+                        'data-field': 'Location.district_id',
+                        'data-placeholder': location.getPlaceholder('District'),
+                        'data-source': '/locations/data/index/District/location_region:',
+                        'data-depends': '.JS-location-region',
+                        'empty': true,
+                        'options': locationFormEdit.getValues('District'),
+                        'class': 'JS-district location-select2',
+                        'required': location.hasRequiredField('District'),
+                        'default': location.getDefault('District'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('District', location.hasRequiredField('District'))},
+                    }) }}
+                    {{ form.input('Location.locality_id', {
+                        'data-field': 'Location.locality_id',
+                        'data-placeholder': location.getPlaceholder('Locality'),
+                        'data-source': '/locations/data/index/Locality/district:',
+                        'data-depends': '.JS-district',
+                        'empty': true,
+                        'options': locationFormEdit.getValues('Locality'),
+                        'class': 'JS-locality location-select2',
+                        'required': location.hasRequiredField('Locality'),
+                        'default': location.getDefault('Locality'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('Locality', location.hasRequiredField('Locality'))},
+                    }) }}
+                    {{ form.input('Location.sub_locality_id', {
+                        'data-field': 'Location.sub_locality_id',
+                        'data-placeholder': location.getPlaceholder('SubLocality'),
+                        'data-source': '/locations/data/index/SubLocality/locality:',
+                        'data-depends': '.JS-locality',
+                        'empty': true,
+                        'options': locationFormEdit.getValues('SubLocality'),
+                        'class': 'JS-sub-locality location-select2',
+                        'required': location.hasRequiredField('SubLocality'),
+                        'default': location.getDefault('SubLocality'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('SubLocality', location.hasRequiredField('SubLocality'))},
+                    }) }}
+                    {{ form.input('Location.street_id', {
+                        'data-field': 'Location.street_id',
+                        'data-placeholder': location.getPlaceholder('Street'),
+                        'data-source': '/locations/data/index/Street/locality:',
+                        'data-depends': '.JS-locality',
+                        'empty': true,
+                        'options': locationFormEdit.getValues('Street'),
+                        'class': 'JS-street location-select2',
+                        'required': location.hasRequiredField('Street'),
+                        'default': location.getDefault('Street'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('Street', location.hasRequiredField('Street'))},
+                    }) }}
+                    {{ form.input('Location.house_number', {
+                        'data-field': 'Location.house_number',
+                        'class': 'JS-house-number input-normal',
+                        'required': location.hasRequiredField('HouseNumber'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('HouseNumber', location.hasRequiredField('HouseNumber'))},
+                    }) }}
+                    {{ form.input('Advertisement.apartment', {
+                        'data-field': 'Advertisement.apartment',
+                        'class': 'JS-apartment input-normal',
+                        'data-categories': location.getCategoriesShowField('apartment', 'json', 7),
+                        'required': location.hasRequiredField('ApartmentNumber'),
+                        'label': {'class': 'label-title', 'text': location.getLabel('ApartmentNumber', location.hasRequiredField('ApartmentNumber'))},
+                    }) }}
 
-                        {{ form.input('Contractor.0.fio', {
-                            'type': 'text',
-                            'required': true,
-                            'class': 'client-name input-normal',
-                            'label': {'class': 'label-title', 'text': 'Фамилия, Имя, Отчество *'}
-                        }) }}
-                        <div class="row">
-                            <div class="col-1-2">
-                                {{ form.input('Contractor.0.phone', {
-                                    'type': 'tel',
-                                    'required': true,
-                                    'class': 'client-phone input-normal',
-                                    'label': {'class': 'label-title', 'text': 'Ваш телефон *'}
-                                }) }}
-                            </div>
-                            <div class="col-1-2">
+                    {{ form.input('Contractor.0.fio', {
+                        'type': 'text',
+                        'required': true,
+                        'class': 'client-name input-normal',
+                        'label': {'class': 'label-title', 'text': 'Фамилия, Имя, Отчество *'}
+                    }) }}
+                    <div class="row">
+                        <div class="col-1-2">
+                            {{ form.input('Contractor.0.phone', {
+                                'type': 'tel',
+                                'required': true,
+                                'class': 'client-phone input-normal',
+                                'label': {'class': 'label-title', 'text': 'Ваш телефон *'}
+                            }) }}
+                        </div>
+                        {# <div class="col-1-2">
                                 {{ form.input('Contractor.0.email', {
                                     'type': 'email',
                                     'class': 'client-mail input-normal',
                                     'label': {'class': 'label-title', 'text': 'Ваш E-mail'}
                                 }) }}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-1-2">
-                                {{ form.input('title', {
-                                    'type': 'text',
-                                    'class': 'input-normal',
-                                    'label': {'class': 'label-title', 'text': 'Заголовок'}
-                                }) }}
-                            </div>
-                            <div class="col-1-2">
-                                {{ form.input('price', {
-                                    'type': 'text',
-                                    'class': 'input-normal price_mask',
-                                    'required': true,
-                                    'label': {'class': 'label-title', 'text': 'Стоимость *'}
-                                }) }}
-                            </div>
-                        </div>
-                        {{ form.input('text', {
-                            'type': 'textarea',
-                            'rows': 3,
-                            'label': {'class': 'label-title', 'text': 'Описание'}
-                        }) }}
-                        <div class="form-agree align-left">
-                            <label class="checkbox-label form-agree-check checked">
-                                {{ form.checkbox('confirmation', {'checked': true,'hidden': true,'class': 'accent-check','hiddenField': false,'value': 1}) }}
-                                Настоящим подтверждаю, что ознакомлен и согласен <br>
-                                с условиями <a href="#" class="open-text-modal agree-link" data-id="1">политики конфиденциальности.</a>
-                            </label>
-                        </div>
-                        <div class="btn-holder btn-holder-flex">
-                            {{ form.button('Опубликовать', {'type': 'submit', 'class': 'btn'}) }}
-                            {{ form.button('Добавить фото', {'type': 'button', 'class': 'btn JS-add-photo'}) }}
-                            {% if recaptcha.hasKey() %}
-                                {{ recaptcha.display_form({'id': 'realty_form', 'div': 'recaptcha-block'}) }}
-                            {% endif %}
-                        </div>
-                        <div id="AdvertisementPicture_list"></div>
+                            </div> #}
                     </div>
-                    <div class="col-1-2 col-xs-1">
-                        <div id="categoryParams" data-ajax-load></div>
+                    <div class="row">
+                        <div class="col-1-2">
+                            {{ form.input('title', {
+                                'type': 'text',
+                                'class': 'input-normal',
+                                'label': {'class': 'label-title', 'text': 'Заголовок'}
+                            }) }}
+                        </div>
+                        <div class="col-1-2">
+                            {{ form.input('price', {
+                                'type': 'text',
+                                'class': 'input-normal price_mask',
+                                'required': true,
+                                'label': {'class': 'label-title', 'text': 'Стоимость *'}
+                            }) }}
+                        </div>
                     </div>
+                    {{ form.input('text', {
+                        'type': 'textarea',
+                        'rows': 3,
+                        'label': {'class': 'label-title', 'text': 'Описание'}
+                    }) }}
+                    <div class="form-agree align-left">
+                        <label class="checkbox-label form-agree-check checked">
+                            {{ form.checkbox('confirmation', {'checked': true,'hidden': true,'class': 'accent-check','hiddenField': false,'value': 1}) }}
+                            Настоящим подтверждаю, что ознакомлен и согласен <br>
+                            с условиями <a href="#" class="open-text-modal agree-link" data-id="1">политики конфиденциальности.</a>
+                        </label>
+                    </div>
+                    <div class="btn-holder btn-holder-flex">
+                        {{ form.button('Опубликовать', {'type': 'submit', 'class': 'btn'}) }}
+                        {{ form.button('Добавить фото', {'type': 'button', 'class': 'btn JS-add-photo'}) }}
+                        {% if recaptcha.hasKey() %}
+                            {{ recaptcha.display_form({'id': 'realty_form', 'div': 'recaptcha-block'}) }}
+                        {% endif %}
+                    </div>
+                    <div id="AdvertisementPicture_list"></div>
                 </div>
+                <div class="col-1-2 col-xs-1">
+                    <div id="categoryParams" data-ajax-load></div>
+                </div>
+            </div>
             {{ form.end() }}
         </div>
     </div>
