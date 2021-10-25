@@ -5,24 +5,52 @@
 {{ adView.setOgparh(advertisement) }}
 {{ adSeo.imageSrcLink(advertisement) }}
 {{ adView.setDefaults({default_picture: config.Site.no_photo_image}) }}
+
+
+{{ html.script(['FileUpload.blueimp-gallery.min', '/libraries/blueimp-gallery/js/jquery.blueimp-gallery.min.js'], {'inline': false}) }}
+{{ html.css(['FileUpload.blueimp-gallery.min'], {'inline': false}) }}
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter="*">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
 <section class="section-case-card" id="case-card">
     <div class="container">
         <ul class="breadcrumbs not-marked nav">
             <li><a href="/" class="breadcrumbs-link">
-                <svg class="svg-icon smart-home-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 223 193.5">
-                    <path class="st0" d="M204.5,79.3l-86-76.7c-4-3.5-9.9-3.5-13.9,0l-86,76.7c-2.2,2-3.5,4.8-3.5,7.8v96c0,5.8,4.7,10.4,10.4,10.4 h172.1c5.8,0,10.4-4.7,10.4-10.4v-96C208,84.1,206.7,81.3,204.5,79.3L204.5,79.3z M187.1,172.6H35.9V91.8l75.6-67.4l75.6,67.4 V172.6L187.1,172.6z"/>
-                </svg>
-            </a></li>
+                    <svg class="svg-icon smart-home-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 223 193.5">
+                        <path class="st0" d="M204.5,79.3l-86-76.7c-4-3.5-9.9-3.5-13.9,0l-86,76.7c-2.2,2-3.5,4.8-3.5,7.8v96c0,5.8,4.7,10.4,10.4,10.4 h172.1c5.8,0,10.4-4.7,10.4-10.4v-96C208,84.1,206.7,81.3,204.5,79.3L204.5,79.3z M187.1,172.6H35.9V91.8l75.6-67.4l75.6,67.4 V172.6L187.1,172.6z"/>
+                    </svg>
+                </a></li>
             <li><a href="/agency/realty" class="breadcrumbs-link dark">Недвижимость</a></li>
             <li><a href="#" class="breadcrumbs-link dark">{{ adSeo.pattern_title(advertisement)|e }}</a></li>
         </ul>
-        <div class="title-normal title-min-size"><h2>{{ adSeo.pattern_title(advertisement)|e }}</h2></div>
+        <div class="title-normal title-min-size">
+            <h2>{{ adSeo.pattern_title(advertisement)|e }}</h2>
+            <div class="social-icon">
+                <button id="showHideSocial">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 26 26">
+                        <path d="M 13 0 C 5.82629 0 0.0001 5.8263 0 13 C -7e-005 20.1739 5.82617 26 13 26 C 20.17383 26 26.00007 20.1739 26 13 C 25.9999 5.8263 20.17371 0 13 0 z M 13 1.0019531 C 19.63324 1.0019531 24.99991 6.3668 25 13 C 25.00007 19.6334 19.63335 25 13 25 C 6.36664 25 0.99993 19.6334 1 13 C 1.00009 6.3668 6.36676 1.0019531 13 1.0019531 z M 16.5 7 C 15.40135 7 14.5 7.9013 14.5 9 C 14.5 9.1787 14.531472 9.350325 14.576172 9.515625 L 11.373047 11.365234 C 10.913847 10.840234 10.24783 10.5 9.5 10.5 C 8.12521 10.5 7 11.6252 7 13 C 7 14.3748 8.12521 15.5 9.5 15.5 C 10.24847 15.5 10.91578 15.160466 11.375 14.634766 L 14.578125 16.482422 C 14.532725 16.648922 14.5 16.8196 14.5 17 C 14.5 18.0986 15.40135 19 16.5 19 C 17.59865 19 18.5 18.0986 18.5 17 C 18.5 15.9013 17.59865 15 16.5 15 C 15.93924 15 15.432699 15.237281 15.068359 15.613281 L 11.867188 13.765625 C 11.946287 13.522925 12 13.2681 12 13 C 12 12.7315 11.946498 12.477275 11.867188 12.234375 L 15.066406 10.386719 C 15.430806 10.763319 15.93874 11 16.5 11 C 17.59865 11 18.5 10.0986 18.5 9 C 18.5 7.9013 17.59865 7 16.5 7 z " color="#000" font-family="sans-serif" font-weight="400" overflow="visible" style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;block-progression:tb"/>
+                    </svg>
+                </button>
+                <div id="socialIcon" style="display: none;">
+
+                    {{ adView.customShare(advertisement, {'onlyButtons': true}) }}
+
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-2-3 col-xs-1">
                 {% set gallery = adView.getGallery(advertisement) %}
                 {% set galleryList = gallery.items ?: [gallery.first] %}
                 {% set galleryMaxList = imageResized.resizePicture(galleryList, {'width': '716', 'height': '496', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_view_max'}) %}
-                <div class="swiper-container case-slider-top">
+                <div class="swiper-container case-slider-top" id="gallery">
                     <div class="swiper-wrapper">
                         {% for galleryItem in galleryMaxList %}
                             <div class="swiper-slide case-slide">
@@ -39,7 +67,10 @@
                                     'data-id': advertisement.Advertisement.id,
                                     'data-action': favoriteAction
                                 }) }}
-                                <img src="{{ galleryItem.src }}" alt="{{ galleryItem.description }}" class="case-slide-image-top">
+
+                                <a href="{{ galleryItem.full }}" title="{{ galleryItem.description }}">
+                                    <img src="{{ galleryItem.src }}" alt="{{ galleryItem.description }}" class="case-slide-image-top">
+                                </a>
                             </div>
                         {% endfor %}
                     </div>
@@ -78,6 +109,67 @@
                         <p><span class="left">Номер дома</span><span class="right">{{ advertisement.Location.house_number }}</span></p>
                     {% endif %}
                 </div>
+                <div class="mortgage-calc-wrap">
+                    <div class="mortgage-title">Рассчитать ипотеку</div>
+                    <div class="mortgage-calc" id="mortgage-calc">
+                        <label for="case-price-num" class="label-title">Стоимость объекта</label>
+                        <input step="5000" min="0" type="number" id="case-price-num" value="{{ advertisement.Advertisement.price }}">
+                        <label for="credit-sum" class="label-title">Сумма кредита</label>
+                        <input step="5000" min="0" type="number" id="credit-sum" placeholder="Введите сумму">
+                        <label for="credit-precent" class="label-title">Процентная ставка (%)</label>
+                        <input step="0.1" min="0" type="number" id="credit-precent" value="0.1" min="0.1" placeholder="Введите ставку в %">
+                        <label for="credit-time" class="label-title">Срок кредита (лет)</label>
+                        <input step="1" min="0" type="number" id="credit-time" placeholder="Введите цифру">
+                        <div class="mortgage-calc-result">
+                            <div><span class="left">Сумма переплаты:</span><span class="right"><span id="overpaymentAmount">0</span>₽</span></div>
+                            <div><span class="left">Сумма общая:</span><span class="right"><b><span id="totalAmount">0</span>₽</b></span></div>
+                            <div><span class="left">Ежемесячный платеж:</span><span class="right"><span id="monthlyPayment">0</span>₽</span></div>
+                        </div>
+                        <div class="btn-wrap align-center"><a href="#" class="btn btn-transparent btn-mortgage open-mortgage-modal">Оставить заявку на ипотеку</a></div>
+                        {{ html.script({0: '/theme/Default/js/mortgage.js', 1: '/agency/js/price_number_format.js'}, {'inline': false}) }}
+                        {{ html.scriptStart({'inline': false, 'safe': false}) }}
+                        $(document).ready(() => {
+                        const mortgageCalc = $('#mortgage-calc');
+                        let casePriceNum = mortgageCalc.find('#case-price-num'), //стоимость объекта
+                        creditSum = mortgageCalc.find('#credit-sum'), //cумма кредита
+                        creditPrecent = mortgageCalc.find('#credit-precent'), //Процентная ставка
+                        creditTime = mortgageCalc.find('#credit-time'), //Срок кредита
+                        overpaymentAmountSpan = mortgageCalc.find('#overpaymentAmount'),
+                        totalAmountSpan = mortgageCalc.find('#totalAmount'),
+                        monthlyPaymentSpan = mortgageCalc.find('#monthlyPayment');
+                        const updateMortgageOutput = () => {
+                        const mortgage = new Mortgage(casePriceNum.val(), +creditPrecent.val(), +creditTime.val());
+                        mortgage.setPercentageInitialPayment(((casePriceNum.val() - creditSum.val()) / casePriceNum.val()) * 100 );
+                        const setOutput = (selector, value) => selector.text(formatNumber(value, 0));
+                        setOutput(overpaymentAmountSpan, mortgage.overpayment())
+                        setOutput(totalAmountSpan, mortgage.monthlyPayment() * mortgage.creditTerm * 12)
+                        setOutput(monthlyPaymentSpan, mortgage.monthlyPayment())
+                        };
+                        casePriceNum.on('change', updateMortgageOutput);
+                        creditSum.on('change', updateMortgageOutput);
+                        creditPrecent.on('change', updateMortgageOutput);
+                        creditTime.on('change', updateMortgageOutput);
+                        $('.open-mortgage-modal').on('click', e => {
+                        $('#form_case-price-num').val(casePriceNum.val());
+                        $('#form_payment').val(casePriceNum.val() - creditSum.val());
+                        $('#form_credit-precent').val(creditPrecent.val());
+                        $('#form_credit-time').val(creditTime.val());
+                        })
+                        })
+                        {{ html.scriptEnd() }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-1-3 col-xs-1">
+                <div class="case-price-info">
+                    <div class="case-id">id {{ advertisement.Advertisement.id }}</div>
+                    <div class="case-price-total">Стоимость <b>{{ price.format(advertisement.Advertisement.price) }} ₽</b></div>
+                    <div class="case-price-space">Цена кв.м. <b>{{ price.format(advertisement.Advertisement.price_area) }} ₽</b></div>
+                </div>
+                <div class="offer-price">
+                    <a href="#" class="btn btn-transparent btn-callback open-phone-modal custom-size">Предложи свою стоимость</a>
+                </div>
                 {% if advertisement.Rieltor.id %}
                     <div class="agent-block hidden-xs">
                         <div class="agent-image-wrap">
@@ -99,63 +191,6 @@
                         </div>
                     </div>
                 {% endif %}
-            </div>
-            <div class="col-1-3 col-xs-1">
-                <div class="case-price-info">
-                    <div class="case-id">id {{ advertisement.Advertisement.id }}</div>
-                    <div class="case-price-total">Стоимость <b>{{ price.format(advertisement.Advertisement.price) }} ₽</b></div>
-                    <div class="case-price-space">Цена кв.м. <b>{{ price.format(advertisement.Advertisement.price_area) }} ₽</b></div>
-                </div>
-                <div class="mortgage-calc-wrap">
-                    <div class="mortgage-title">Рассчитать ипотеку</div>
-                    <div class="mortgage-calc" id="mortgage-calc">
-                        <label for="case-price-num" class="label-title">Стоимость объекта</label>
-                        <input step="5000" min="0" type="number" id="case-price-num" value="{{ advertisement.Advertisement.price }}">
-                        <label for="credit-sum" class="label-title">Сумма кредита</label>
-                        <input step="5000" min="0" type="number" id="credit-sum" placeholder="Введите сумму">
-                        <label for="credit-precent" class="label-title">Процентная ставка (%)</label>
-                        <input step="1" min="0" type="number" id="credit-precent" placeholder="Введите ставку в %">
-                        <label for="credit-time" class="label-title">Срок кредита (лет)</label>
-                        <input step="1" min="0" type="number" id="credit-time" placeholder="Введите цифру">
-                        <div class="mortgage-calc-result">
-                            <div><span class="left">Сумма переплаты:</span><span class="right"><span id="overpaymentAmount">0</span>₽</span></div>
-                            <div><span class="left">Сумма общая:</span><span class="right"><b><span id="totalAmount">0</span>₽</b></span></div>
-                            <div><span class="left">Ежемесячный платеж:</span><span class="right"><span id="monthlyPayment">0</span>₽</span></div>
-                        </div>
-                        <div class="btn-wrap align-center"><a href="#" class="btn btn-transparent btn-mortgage open-mortgage-modal">Оставить заявку на ипотеку</a></div>
-                        {{ html.script({0: '/theme/Default/js/mortgage.js', 1: '/agency/js/price_number_format.js'}, {'inline': false}) }}
-                        {{ html.scriptStart({'inline': false, 'safe': false}) }}
-                            $(document).ready(() => {
-                                const mortgageCalc = $('#mortgage-calc');
-                                let casePriceNum = mortgageCalc.find('#case-price-num'), //стоимость объекта
-                                    creditSum = mortgageCalc.find('#credit-sum'), //cумма кредита
-                                    creditPrecent = mortgageCalc.find('#credit-precent'), //Процентная ставка
-                                    creditTime = mortgageCalc.find('#credit-time'), //Срок кредита
-                                    overpaymentAmountSpan = mortgageCalc.find('#overpaymentAmount'),
-                                    totalAmountSpan = mortgageCalc.find('#totalAmount'),
-                                    monthlyPaymentSpan = mortgageCalc.find('#monthlyPayment');
-                                const updateMortgageOutput = () => {
-                                    const mortgage = new Mortgage(casePriceNum.val(), +creditPrecent.val(), +creditTime.val());
-                                    mortgage.setPercentageInitialPayment(((casePriceNum.val() - creditSum.val()) / casePriceNum.val()) * 100 );
-                                    const setOutput = (selector, value) => selector.text(formatNumber(value, 0));
-                                    setOutput(overpaymentAmountSpan, mortgage.overpayment())
-                                    setOutput(totalAmountSpan, mortgage.monthlyPayment() * mortgage.creditTerm * 12)
-                                    setOutput(monthlyPaymentSpan, mortgage.monthlyPayment())
-                                };
-                                casePriceNum.on('change', updateMortgageOutput);
-                                creditSum.on('change', updateMortgageOutput);
-                                creditPrecent.on('change', updateMortgageOutput);
-                                creditTime.on('change', updateMortgageOutput);
-                                $('.open-mortgage-modal').on('click', e => {
-                                    $('#form_case-price-num').val(casePriceNum.val());
-                                    $('#form_payment').val(casePriceNum.val() - creditSum.val());
-                                    $('#form_credit-precent').val(creditPrecent.val());
-                                    $('#form_credit-time').val(creditTime.val());
-                                })
-                            })
-                        {{ html.scriptEnd() }}
-                    </div>
-                </div>
             </div>
         </div>
         <div class="tabs-block case-tabs-description" data-tab-block="t-case-desc">
@@ -201,42 +236,77 @@
 </section>
 
 {% if similarOffers %}
-<section class="section-offer" id="offer">
-    <div class="container">
-        <div class="title-normal title-min-size"><h2>Похожие предложения</h2></div>
-        <div class="row row-3">
-            {% for item in similarOffers %}
-                {% set offerItem = adView.getInfo(item) %}
-                <div class="col-1-3 col-xs-1">
-                    <a href="{{ html.url(offerItem.url) }}" class="case-item" title="{{ adSeo.pattern_title(item)|e }}">
-                        {% set favoriteActiveClass = '' %}
-                        {% set favoriteAction = 'add' %}
-                        {% if favorite.has('Advertisement', item.Advertisement.id) %}
-                            {% set favoriteActiveClass = ' active' %}
-                            {% set favoriteAction = 'remove' %}
-                        {% endif %}
-                        {{ html.tag('div', '', {
-                            'class': 'favorites-action star' ~ favoriteActiveClass,
-                            'escape': false,
-                            'data-model': 'Advertisement',
-                            'data-id': item.Advertisement.id,
-                            'data-action': favoriteAction
-                        }) }}
-                        <div class="case-id">id {{ item.Advertisement.id }}</div>
-                        <picture class="case-image-wrap">
-                            {% set gallery = adView.getGallery(item) %}
-                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_list'}) %}
-                            <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
-                        </picture>
-                        <div class="case-content">
-                            <div class="case-title">{{ item.Advertisement.location_full|e }}</div>
-                            <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
-                            <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+    <section class="section-offer" id="offer">
+        <div class="container">
+            <div class="title-normal title-min-size"><h2>Похожие предложения</h2></div>
+            <div class="row row-3">
+                {% for item in similarOffers %}
+                    {% set offerItem = adView.getInfo(item) %}
+                    <div class="col-1-3 col-xs-1">
+                        <a href="{{ html.url(offerItem.url) }}" class="case-item" title="{{ adSeo.pattern_title(item)|e }}">
+                            {% set favoriteActiveClass = '' %}
+                            {% set favoriteAction = 'add' %}
+                            {% if favorite.has('Advertisement', item.Advertisement.id) %}
+                                {% set favoriteActiveClass = ' active' %}
+                                {% set favoriteAction = 'remove' %}
+                            {% endif %}
+                            {{ html.tag('div', '', {
+                                'class': 'favorites-action star' ~ favoriteActiveClass,
+                                'escape': false,
+                                'data-model': 'Advertisement',
+                                'data-id': item.Advertisement.id,
+                                'data-action': favoriteAction
+                            }) }}
+                            <div class="case-id">id {{ item.Advertisement.id }}</div>
+                            <picture class="case-image-wrap">
+                                {% set gallery = adView.getGallery(item) %}
+                                {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'fit', 'paddings': false, 'folder': 'twig_fit_realty_list'}) %}
+                                <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
+                            </picture>
+                            <div class="case-content">
+                                <div class="case-title">{{ item.Advertisement.location_full|e }}</div>
+                                <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
+                                <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endif %}
+
+
+{{ html.scriptStart({'inline': false, 'safe': false, 'defer': true,}) }}
+$('#gallery').on('click', function (event) {
+event = event || window.event;
+let target = event.target || event.srcElement;
+let link = target.src ? target.parentNode : target
+let options = { index: link, event: event };
+let links = this.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate) > a');
+blueimp.Gallery(links, options);
+});
+
+
+$(document).ready(function(){
+
+$(".icon-share-ok").remove();
+$(".icon-share-facebook").remove();
+$(".icon-share-myword").remove();
+$(".icon-share-tumblr").remove();
+$(".icon-share-twitter").remove();
+$(".icon-share-copy").remove();
+
+$('#showHideSocial').click(function(){
+
+if ($('#socialIcon').is(':hidden')) {
+$('#socialIcon').show('slow');
+} else {
+$('#socialIcon').hide('slow');
+}
+return false;
+
+});
+
+});
+{{ html.scriptEnd() }}

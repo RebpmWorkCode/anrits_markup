@@ -9,10 +9,10 @@
                 'class': 'calc-values ani-input-wrap',
                 'inputDefaults': {'div': false, 'label': false}
             }) }}
-                {{ form.input('amount', {'class': 'calc-value calc-value-summ placeholder-dark', 'placeholder': 'Сумма рублей'}) }}
-                {{ form.input('percentage', {'class': 'calc-value calc-value-percent placeholder-dark', 'placeholder': 'Процентная ставка'}) }}
-                {{ form.input('term', {'class': 'calc-value calc-value-time placeholder-dark', 'placeholder': 'Срок кредита, лет'}) }}
-                <button class="btn btn-calc">Рассчитать</button>
+            {{ form.input('amount', {'class': 'calc-value calc-value-summ placeholder-dark', 'placeholder': 'Сумма рублей'}) }}
+            {{ form.input('percentage', {'class': 'calc-value calc-value-percent placeholder-dark', 'placeholder': 'Процентная ставка'}) }}
+            {{ form.input('term', {'class': 'calc-value calc-value-time placeholder-dark', 'placeholder': 'Срок кредита, лет'}) }}
+            <button class="btn btn-calc">Рассчитать</button>
             {{ form.end() }}
             {% if mortgage %}
                 {% if monthPayment %}<div class="calc-result">Сумма ежемесячного платежа: <b class="calc-mount-result">{{ price.format(monthPayment) }} ₽</b></div>{% endif %}

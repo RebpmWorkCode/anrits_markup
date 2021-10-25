@@ -4,199 +4,214 @@
         <div class="add-case-block">
             <div class="title-normal title-min-size"><h2>Выберите вариант</h2></div>
             {{ form.create('Advertisement', {'url': {'plugin' : 'agency','controller' : 'realty', 'action' : 'index'}}) }}
-                <div class="choice-option-case">
-                    <div class="choice-label-wrap">
-                        {{ form.radio('rent', {'sale': 'Продажа','rent': 'Аренда'}, {
-                            'legend': false,
-                            'label': {'class': 'choice-label choice-label-big'},
-                            'hiddenField': false,
-                            'separator': '</div><div class="or">или</div><div class="choice-label-wrap">',
-                        }) }}
-                    </div>
+            <div class="choice-option-case">
+                <div class="choice-label-wrap">
+                    {{ form.radio('rent', {'sale': 'Продажа','rent': 'Аренда'}, {
+                        'legend': false,
+                        'label': {'class': 'choice-label choice-label-big'},
+                        'hiddenField': false,
+                        'separator': '</div><div class="or">или</div><div class="choice-label-wrap">',
+                    }) }}
                 </div>
-                <div class="show-map-block show-map-choice-case"><div class="show-map-title">Карта</div><div class="show-map-btn"></div></div>
-                <div class="choice-case-title">Вид недвижимости</div>
-                <ul class="choice-type-case-list not-marked nav">
-                    <li>
-                        {{ form.radio('category_id', categories, {
-                            'legend': false,
-                            'label': {'class': 'choice-label choice-label-min'},
-                            'hiddenField': false,
-                            'separator': '</li><li>',
-                        }) }}
-                    </li>
-                </ul>
-                <div class="hidden-params" style="display: none">
-                    <div class="row select-block">
-                        {% set searchView = _view.loadHelper('Search.SearchView') %}
-                        {{ searchView.renderField('Advertisement.district_id', attribute(searchFields, 'Advertisement.district_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
-                        {{ searchView.renderField('Advertisement.locality_id', attribute(searchFields, 'Advertisement.locality_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
-                        {{ searchView.renderField('Advertisement.sub_locality_id', attribute(searchFields, 'Advertisement.sub_locality_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
-                        {{ searchView.renderField('Advertisement.street_id', attribute(searchFields, 'Advertisement.street_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
-                    </div>
-                    {% set complexCategorySearch = _view.loadHelper('ComplexCategories.ComplexCategorySearch') %}
+            </div>
+            <div class="show-map-block show-map-choice-case"><div class="show-map-title">Карта</div><div class="show-map-btn"></div></div>
+            <div class="choice-case-title">Вид недвижимости</div>
+            <ul class="choice-type-case-list not-marked nav">
+                <li>
+                    {{ form.radio('category_id', categories, {
+                        'legend': false,
+                        'label': {'class': 'choice-label choice-label-min'},
+                        'hiddenField': false,
+                        'separator': '</li><li>',
+                    }) }}
+                </li>
+            </ul>
 
-                    {% set slidersFields = {} %}
-                    {% set selectFields = {} %}
-                    {% set checkboxFields = {} %}
-                    {% set textFields = {} %}
+            <div>
+                {% set roomsNumSearchField = attribute(searchFields, 'rooms_num') %}
+                <div class="col-1-4 col-xs-1-2 {{ complexCategorySearch.getClassesFilter(null, roomsNumSearchField)|join(' ')|replace({'input ': ''}) }}">
+                    {{ form.input('rooms_num', {
+                        'div': false,
+                        'type': 'select',
+                        'label': false,
+                        'empty': true,
+                        'data-placeholder': roomsNumSearchField.label,
+                        'data-allow-clear': "true",
+                        'options': _view.get(attribute(roomsNumSearchField, 'data-options')),
+                    }) }}
+                </div>
+            </div>
+            <div class="hidden-params" style="display: none">
+                <div class="row select-block">
+                    {% set searchView = _view.loadHelper('Search.SearchView') %}
+                    {{ searchView.renderField('Advertisement.district_id', attribute(searchFields, 'Advertisement.district_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
+                    {{ searchView.renderField('Advertisement.locality_id', attribute(searchFields, 'Advertisement.locality_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
+                    {{ searchView.renderField('Advertisement.sub_locality_id', attribute(searchFields, 'Advertisement.sub_locality_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
+                    {{ searchView.renderField('Advertisement.street_id', attribute(searchFields, 'Advertisement.street_id')|merge({'div': 'col-1-4 col-xs-1-2', 'multiple': false, 'empty': true, 'data-allow-clear': "true"}) ) }}
+                </div>
+                {% set complexCategorySearch = _view.loadHelper('ComplexCategories.ComplexCategorySearch') %}
 
-                    {% for searchFieldAlias, searchFieldItem in searchFields %}
-                        {% if searchFieldAlias not in ['Advertisement.category_id', 'Advertisement.country_id', 'Advertisement.location_region_id', 'Advertisement.district_id', 'Advertisement.locality_id', 'Advertisement.sub_locality_id', 'Advertisement.micro_district_id', 'Advertisement.street_id', 'Advertisement.metro_id', 'Advertisement.house', 'Advertisement.rent','Advertisement.term_rent_id','Advertisement.id','Advertisement.show_in_hot','Advertisement.exclusive','Advertisement.polygon','Advertisement.currency_id','Advertisement.search','Advertisement.reservation'] %}
-                            {% if attribute(searchFieldItem, 'param-type') == -1 %}
-                                {% set checkboxFields = checkboxFields|merge({(searchFieldAlias): searchFieldItem}) %}
-                            {% endif %}
-                            {% if attribute(searchFieldItem, 'param-type') == 0 %}
-                                {% set slidersFields = slidersFields|merge({(searchFieldAlias): searchFieldItem}) %}
-                            {% endif %}
-                            {% if attribute(searchFieldItem, 'param-type') == 1 %}
-                                {% set textFields = textFields|merge({(searchFieldAlias): searchFieldItem}) %}
-                            {% endif %}
-                            {% if attribute(searchFieldItem, 'param-type') == 2 %}
-                                {% set selectFields = selectFields|merge({(searchFieldAlias): searchFieldItem})  %}
-                            {% endif %}
+                {% set slidersFields = {} %}
+                {% set selectFields = {} %}
+                {% set checkboxFields = {} %}
+                {% set textFields = {} %}
+
+                {% for searchFieldAlias, searchFieldItem in searchFields %}
+                    {% if searchFieldAlias not in ['Advertisement.category_id', 'Advertisement.country_id', 'Advertisement.location_region_id', 'Advertisement.district_id', 'Advertisement.locality_id', 'Advertisement.sub_locality_id', 'Advertisement.micro_district_id', 'Advertisement.street_id', 'Advertisement.metro_id', 'Advertisement.house', 'Advertisement.rent','Advertisement.term_rent_id','Advertisement.id','Advertisement.show_in_hot','Advertisement.exclusive','Advertisement.polygon','Advertisement.currency_id','Advertisement.search','Advertisement.reservation', 'rooms_num'] %}
+                        {% if attribute(searchFieldItem, 'param-type') == -1 %}
+                            {% set checkboxFields = checkboxFields|merge({(searchFieldAlias): searchFieldItem}) %}
                         {% endif %}
-                    {% endfor %}
-                    {% for slidersBatch in slidersFields|batch(2) %}
-                        <div class="row range-price-space-block">
-                            {% for alias,field in slidersBatch %}
-                                {% set originalAlias = alias %}
-                                {% set alias = alias|replace({'Advertisement.': ''}) %}
-                                <div class="col-1-2 col-xs-1 {{ ('Advertisement' in originalAlias) ? '' : complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
-                                    <div class="choice-case-title">{{ field.label }}</div>
-                                    <div class="case-range case-range-{{ alias }}">
-                                        {{ form.hidden('Advertisement.' ~ alias ~ '_from', {'class': 'filter-from'} )}}
-                                        {{ form.hidden('Advertisement.' ~ alias ~ '_to', {'class': 'filter-to'} )}}
-                                        <div class="case-range-{{ alias }}-min"></div>
-                                        <div class="case-range-{{ alias }}-max"></div>
-                                    </div>
-                                    <div class="params-slider slider-range" data-field="{{ alias }}" data-min="{{ attribute(searchView.getRange({'alias': alias}), 'min') }}" data-max="{{ attribute(searchView.getRange({'alias': alias}), 'max') }}" data-step="{{ attribute(searchView.getRange({'alias': alias}), 'step') }}"></div>
+                        {% if attribute(searchFieldItem, 'param-type') == 0 %}
+                            {% set slidersFields = slidersFields|merge({(searchFieldAlias): searchFieldItem}) %}
+                        {% endif %}
+                        {% if attribute(searchFieldItem, 'param-type') == 1 %}
+                            {% set textFields = textFields|merge({(searchFieldAlias): searchFieldItem}) %}
+                        {% endif %}
+                        {% if attribute(searchFieldItem, 'param-type') == 2 %}
+                            {% set selectFields = selectFields|merge({(searchFieldAlias): searchFieldItem})  %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% for slidersBatch in slidersFields|batch(2) %}
+                    <div class="row range-price-space-block">
+                        {% for alias,field in slidersBatch %}
+                            {% set originalAlias = alias %}
+                            {% set alias = alias|replace({'Advertisement.': ''}) %}
+                            <div class="col-1-2 col-xs-1 {{ ('Advertisement' in originalAlias) ? '' : complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
+                                <div class="choice-case-title">{{ field.label }}</div>
+                                <div class="case-range case-range-{{ alias }}">
+                                    {{ form.hidden('Advertisement.' ~ alias ~ '_from', {'class': 'filter-from'} )}}
+                                    {{ form.hidden('Advertisement.' ~ alias ~ '_to', {'class': 'filter-to'} )}}
+                                    <div class="case-range-{{ alias }}-min"></div>
+                                    <div class="case-range-{{ alias }}-max"></div>
                                 </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                    {% for selectBatch in selectFields|batch(4) %}
-                        <div class="row select-block">
-                            {% for alias,field in selectBatch %}
-                                <div class="col-1-4 col-xs-1-2 {{ complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
-                                    {{ form.input(alias, {
-                                        'div': false,
-                                        'type': 'select',
-                                        'label': false,
-                                        'empty': true,
-                                        'data-placeholder': field.label,
-                                        'data-allow-clear': "true",
-                                        'options': _view.get(attribute(field, 'data-options')),
-                                    }) }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                    {% for textBatch in textFields|batch(4) %}
-                        <div class="row">
-                            {% for alias,field in textBatch %}
-                                <div class="col-1-4 col-xs-1-2 {{ complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
-                                    {{ form.input(alias, {
-                                        'div': false,
-                                        'label': false,
-                                        'type': 'text',
-                                        'placeholder': field.label,
-                                    }) }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
+                                <div class="params-slider slider-range" data-field="{{ alias }}" data-min="{{ attribute(searchView.getRange({'alias': alias}), 'min') }}" data-max="{{ attribute(searchView.getRange({'alias': alias}), 'max') }}" data-step="{{ attribute(searchView.getRange({'alias': alias}), 'step') }}"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                {% for selectBatch in selectFields|batch(4) %}
+                    <div class="row select-block">
+                        {% for alias,field in selectBatch %}
+                            <div class="col-1-4 col-xs-1-2 {{ complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
+                                {{ form.input(alias, {
+                                    'div': false,
+                                    'type': 'select',
+                                    'label': false,
+                                    'empty': true,
+                                    'data-placeholder': field.label,
+                                    'data-allow-clear': "true",
+                                    'options': _view.get(attribute(field, 'data-options')),
+                                }) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                {% for textBatch in textFields|batch(4) %}
                     <div class="row">
-                        <div class="col-1-4 col-xs-1-2">
-                            <ul class="check-list-case not-marked">
-                                {% set checkboxFields = checkboxFields|merge({'search_photo': {
-                                    'param-id': 'search_photo',
-                                    'label': 'Наличие фото',
-                                    'value': 'with'
-                                }}) %}
-                                {% for alias,checkbox in checkboxFields %}
-                                    <li>
-                                        <label>
-                                            {{ form.checkbox('Advertisement.' ~ attribute(checkbox, 'param-id'), {
-                                                'hidden': true,
-                                                'div': false,
-                                                'label': false,
-                                                'hiddenField': false,
-                                                'value': checkbox.value ?? '1'
-                                            }) }} {{ checkbox.label }}
-                                        </label>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+                        {% for alias,field in textBatch %}
+                            <div class="col-1-4 col-xs-1-2 {{ complexCategorySearch.getClassesFilter(null, field)|join(' ')|replace({'input ': ''}) }}">
+                                {{ form.input(alias, {
+                                    'div': false,
+                                    'label': false,
+                                    'type': 'text',
+                                    'placeholder': field.label,
+                                }) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-1-4 col-xs-1-2">
+                        <ul class="check-list-case not-marked">
+                            {% set checkboxFields = checkboxFields|merge({'search_photo': {
+                                'param-id': 'search_photo',
+                                'label': 'Наличие фото',
+                                'value': 'with'
+                            }}) %}
+                            {% for alias,checkbox in checkboxFields %}
+                                <li>
+                                    <label>
+                                        {{ form.checkbox('Advertisement.' ~ attribute(checkbox, 'param-id'), {
+                                            'hidden': true,
+                                            'div': false,
+                                            'label': false,
+                                            'hiddenField': false,
+                                            'value': checkbox.value ?? '1'
+                                        }) }} {{ checkbox.label }}
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
-                <div class="row filter-control-block">
-                    <div class="col-1-6 col-xs-1">
-                        <button type="button" class="JS-clean-values filter-default">
-                            Сбросить фильтр <svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64">
-                                <path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="col-1-3 col-xs-1 align-center align-left-mobile">
-                        <button type="button" class="filter-option-hide hide"><span>показать часть параметров</span><div class="icon"></div></button>
-                    </div>
-                    <div class="col-1-4 col-xs-1">
-                        <div class="filter-num-result">Найдено <b>{{ paginator.params.current }}</b> вариантов</div>
-                    </div>
-                    <div class="col-1-4 col-xs-1">
-                        <button type="submit" class="filter-default">Найти</button>
-                    </div>
+            </div>
+            <div class="row filter-control-block">
+                <div class="col-1-6 col-xs-1">
+                    <button type="button" class="JS-clean-values filter-default">
+                        Сбросить фильтр <svg width="34" height="34" class="svg-icon cross-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 64 64">
+                            <path class="st0" d="M28.9,31.8L0.6,60.1c-0.8,0.8-0.8,2.1,0,2.8C1,63.4,1.5,63.6,2,63.6s1-0.2,1.4-0.6L32,34.4L60.5,63 c0.4,0.4,0.9,0.6,1.4,0.6s1-0.2,1.4-0.6c0.8-0.8,0.8-2.1,0-2.8L35.1,31.8L63.4,3.4c0.8-0.8,0.8-2.1,0-2.8c-0.8-0.8-2.1-0.8-2.8,0 L32,29.1L3.4,0.6c-0.8-0.8-2.1-0.8-2.8,0c-0.8,0.8-0.8,2.1,0,2.8L28.9,31.8z" fill="#fff"/>
+                        </svg>
+                    </button>
                 </div>
+                <div class="col-1-3 col-xs-1 align-center align-left-mobile">
+                    <button type="button" class="filter-option-hide hide"><span>показать часть параметров</span><div class="icon"></div></button>
+                </div>
+                <div class="col-1-4 col-xs-1">
+                    <div class="filter-num-result">Найдено <b>{{ paginator.params.current }}</b> вариантов</div>
+                </div>
+                <div class="col-1-4 col-xs-1">
+                    <button type="submit" class="filter-default">Найти</button>
+                </div>
+            </div>
             {{ form.end() }}
             <div class="choice-case-map hide">
                 {{ html.script(['Agency.filter-map-site', 'YandexMaps.simplify'], {'inline': false}) }}
                 <div class="map-choice-wrap" id="map-list"></div>
                 {{ html.scriptStart({'inline': false, 'safe': false}) }}
                 let KlasterIs2bMapSite = {
-                    url: null,
-                    init: function (YandexMapCenter, url) {
-                        this.url = url;
-                        Is2bMap.init('map-list', YandexMapCenter, [], {'isAdmin': false});
-                        let d = '';
-                        this.loadObjects(d, true);
+                url: null,
+                init: function (YandexMapCenter, url) {
+                this.url = url;
+                Is2bMap.init('map-list', YandexMapCenter, [], {'isAdmin': false});
+                let d = '';
+                this.loadObjects(d, true);
 
-                        Is2bMap.map.events.add('boundschange', function (e) {
-                            if (Is2bMap.block.hasClass('is2b-loaded-points')) {
-                                return !1;
-                            }
-                            d = Is2bMap.dataMapKlaster();
-                            KlasterIs2bMapSite.loadObjects(d, false);
-                        });
-                    },
-                    setBounds: function () {
-                        if (Is2bMap.geoObjects != null) {
-                            if (Is2bMap.geoObjects.length > 0) {
-                                console.log('set Bounsds');
-                                console.log(Is2bMap.clusterer.getBounds());
-                                Is2bMap.map.setBounds(Is2bMap.clusterer.getBounds(), {
-                                    checkZoomRange: true
-                                });
-                            }
-                        }
-                    },
-                    loadObjects: function (d, setBounds) {
-                        Is2bMap.removeAllPoints();
-                        $.ajax({
-                            url: this.url + (d === '' ? '' : '&' + d),
-                            dataType: 'json'
-                        }).done(function (data) {
-                            console.log(data.length);
-                            Is2bMap.setPoints(data);
-                            if (setBounds) {
-                                KlasterIs2bMapSite.setBounds();
-                            }
-                        });
-                    }
+                Is2bMap.map.events.add('boundschange', function (e) {
+                if (Is2bMap.block.hasClass('is2b-loaded-points')) {
+                return !1;
+                }
+                d = Is2bMap.dataMapKlaster();
+                KlasterIs2bMapSite.loadObjects(d, false);
+                });
+                },
+                setBounds: function () {
+                if (Is2bMap.geoObjects != null) {
+                if (Is2bMap.geoObjects.length > 0) {
+                console.log('set Bounsds');
+                console.log(Is2bMap.clusterer.getBounds());
+                Is2bMap.map.setBounds(Is2bMap.clusterer.getBounds(), {
+                checkZoomRange: true
+                });
+                }
+                }
+                },
+                loadObjects: function (d, setBounds) {
+                Is2bMap.removeAllPoints();
+                $.ajax({
+                url: this.url + (d === '' ? '' : '&' + d),
+                dataType: 'json'
+                }).done(function (data) {
+                console.log(data.length);
+                Is2bMap.setPoints(data);
+                if (setBounds) {
+                KlasterIs2bMapSite.setBounds();
+                }
+                });
+                }
                 };
                 ymaps.ready(function () {
-                    KlasterIs2bMapSite.init({{ yaMaps.YandexMapCenter() }}, window.location.protocol + '//' + window.location.hostname + '/agency/realty/map' + (window.location.search || '?1=1'));
+                KlasterIs2bMapSite.init({{ yaMaps.YandexMapCenter() }}, window.location.protocol + '//' + window.location.hostname + '/agency/realty/map' + (window.location.search || '?1=1'));
                 })
                 {{ html.scriptEnd() }}
             </div>
