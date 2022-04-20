@@ -10,22 +10,22 @@ const Location = {
     direction: $('.JS-direction'),
     metro: $('.JS-metro'),
     init: function (selector) {
-      $(selector).each((i, el) => {
-          let $selectEl = $(el), _theme = $selectEl.data('theme-select2') || 'default';
-          $selectEl.select2({
-              language: 'ru',
-              width: '100%',
-              theme: _theme,
-              escapeMarkup: markup => markup,
-              tags: true,
-              insertTag: function (data, tag) {
-                  if(data.length === 0){
-                      clearTimeout(TimerLocation);
-                      TimerLocation = setTimeout(() => Location.ajaxLocation($($(this)[0].$element[0]), tag.text, data), 1000);
-                  }
-              }
-          });
-      });
+        $(selector).each((i, el) => {
+            let $selectEl = $(el), _theme = $selectEl.data('theme-select2') || 'default';
+            $selectEl.select2({
+                language: 'ru',
+                width: '100%',
+                theme: _theme,
+                escapeMarkup: markup => markup,
+                tags: true,
+                insertTag: function (data, tag) {
+                    if(data.length === 0){
+                        clearTimeout(TimerLocation);
+                        TimerLocation = setTimeout(() => Location.ajaxLocation($($(this)[0].$element[0]), tag.text, data), 1000);
+                    }
+                }
+            });
+        });
         $(selector).on('change', (e) => Location.getData($(e.target)))
     },
     ajaxLocation: function (input, search, _data) {
@@ -43,7 +43,13 @@ const Location = {
         }
         if (dependOn) {
             if ($(dependOn).length > 0) {
-                url += $(dependOn).val();
+                if ($(dependOn).val()) {
+                    url += $(dependOn).val();
+                } else {
+                    let text = $(dependOn).closest('div').find('label').text();
+                    alert(`Вы не указали - ${text}`);
+                    return '';
+                }
             }
         }
         if (search.length > minLength) {

@@ -1,50 +1,130 @@
-<section class="section-advantages" id="advantages">
+<section class="section-case" id="case">
     <div class="container">
-        <h2>Наше отличие от риелторских агентств</h2>
-        <div class="row">
-            <div class="col-1-4 col-xs-1">
-                <ul class="advantages-slider-list not-marked">
-                    <li class="advantages-to-slide active" data-slide="0"><div class="slide-num">01.</div>Работаем только по ценам застройщиков</li>
-                    <li class="advantages-to-slide" data-slide="1"><div class="slide-num">02.</div>Работаем только по ценам продавцов вторичной недвижимости</li>
-                    <li class="advantages-to-slide" data-slide="2"><div class="slide-num">03.</div>Работаем только с проверенным предложением</li>
-                </ul>
-                <div class="advantages-slider-control">
-                    <div class="swiper-pagination advantages-pagination"></div>
-                    <div class="swiper-button-next advantages-button-next">
-                        <svg class="svg-icon right-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3">
-                            <path class="st0" d="M51.7,185.3c-2.7,0-5.5-1-7.6-3.1c-4.2-4.2-4.2-11,0-15.2l74.4-74.3L44.1,18.3c-4.2-4.2-4.2-11,0-15.2 c4.2-4.2,11-4.2,15.2,0l81.9,81.9c4.2,4.2,4.2,11,0,15.2l-81.9,81.9C57.2,184.3,54.5,185.3,51.7,185.3z"/>
-                        </svg>
-                    </div>
-                    <div class="swiper-button-prev advantages-button-prev">
-                        <svg class="svg-icon left-chevron" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 185.3 185.3">
-                            <path class="st0" d="M133.6,0c2.7,0,5.5,1,7.6,3.1c4.2,4.2,4.2,11,0,15.2L66.9,92.7l74.4,74.4c4.2,4.2,4.2,11,0,15.2 c-4.2,4.2-11,4.2-15.2,0l-81.9-81.9c-4.2-4.2-4.2-11,0-15.2L126,3.1C128.1,1,130.9,0,133.6,0z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3-4 col-xs-1">
-                <div class="advantages-slider-wrap">
-                    <div class="swiper-container advantages-slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide advantages-slide" data-hash="0">
-                                <img src="/uploads/assets/images/advantages-slide.jpg" class="advantages-slide-image" alt=" ">
-                                <div class="advantages-slide-title">Работаем только по ценам продавцов вторичной недвижимости</div>
-                                <div class="advantages-slide-text">Работаем по технологии "Брокеридж" как Единый отдел продаж новостроек. Выбор, просмотр и бронирование квартир в 100% новостроек города в одном офисе по ценам застройщиков и подрядных организаций. Вся информация об акциях, скидках и реальных сроках сдачи.</div>
-                            </div>
-                            <div class="swiper-slide advantages-slide" data-hash="1">
-                                <img src="/uploads/assets/images/advantages-slide.jpg" class="advantages-slide-image" alt=" ">
-                                <div class="advantages-slide-title">Работаем только по ценам продавцов вторичной недвижимости</div>
-                                <div class="advantages-slide-text">Работаем по технологии "Брокеридж" как Единый отдел продаж новостроек. Выбор, просмотр и бронирование квартир в 100% новостроек города в одном офисе по ценам застройщиков и подрядных организаций. Вся информация об акциях, скидках и реальных сроках сдачи.</div>
-                            </div>
-                            <div class="swiper-slide advantages-slide" data-hash="2">
-                                <img src="/uploads/assets/images/advantages-slide.jpg" class="advantages-slide-image" alt=" ">
-                                <div class="advantages-slide-title">Работаем только по ценам продавцов вторичной недвижимости</div>
-                                <div class="advantages-slide-text">Работаем по технологии "Брокеридж" как Единый отдел продаж новостроек. Выбор, просмотр и бронирование квартир в 100% новостроек города в одном офисе по ценам застройщиков и подрядных организаций. Вся информация об акциях, скидках и реальных сроках сдачи.</div>
-                            </div>
+        <div class="h2-fn"> Горячие объявления</div>
+        <div class="row row-3 case-items-block">
+            {% set favorite = _view.loadHelper('Favorites.Favorite') %}
+            {{ adView.setDefaults({default_picture: '/uploads/assets/images/case-image-mob.jpg'}) }}
+            {% for item in hotOffers %}
+                {% set offerItem = adView.getInfo(item) %}
+                <div class="col-1-3 col-xs-1">
+                    <a href="{{ html.url(offerItem.url) }}" class="case-item" title="{{ adSeo.pattern_title(item)|e }}" target="_blank">
+                        {% set favoriteActiveClass = '' %}
+                        {% set favoriteAction = 'add' %}
+                        {% if favorite.has('Advertisement', item.Advertisement.id) %}
+                            {% set favoriteActiveClass = ' active' %}
+                            {% set favoriteAction = 'remove' %}
+                        {% endif %}
+                        {{ html.tag('div', '', {
+                            'class': 'favorites-action star' ~ favoriteActiveClass,
+                            'escape': false,
+                            'data-model': 'Advertisement',
+                            'data-id': item.Advertisement.id,
+                            'data-action': favoriteAction
+                        }) }}
+                        <div class="case-id">id {{ item.Advertisement.id }}</div>
+                        <picture class="case-image-wrap">
+                            {% set gallery = adView.getGallery(item) %}
+                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'crop', 'paddings': false, 'folder': 'twig_crop_realty_list'}) %}
+                            <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
+                        </picture>
+                        <div class="case-content">
+                            <div class="case-title">{{ item.Advertisement.location_full }}</div>
+                            <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
+                            <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
+            {% endfor %}
+        </div>
+        <div class="btn-holder spoiler-holder align-center">
+            <a href="/agency/realty" class="btn-spoiler">+ Показать больше</a>
         </div>
     </div>
 </section>
+
+<style>
+    .case-image-wrap.image_news {
+        height: 266px;
+        overflow: hidden;
+    }
+    .case-item .news-date {
+        font: 400 21px/1 'Stem', sans-serif;
+        color: #6b6b6b;
+        margin-bottom: 28px;
+    }
+
+</style>
+
+<section class="section-list-news" id="news" style="padding: 132px 0 152px;">
+    <div class="container">
+        <div class="h2-fn">Новости</div>
+        {% set rusTime = _view.loadHelper('Fastadmin.RusTime') %}
+        <div class="row row-3 case-items-block">
+            {% for newGroup in layout_news %}
+                <div class="col-1-3 col-xs-1">
+                    {% for newItem in newGroup|batch(3) %}
+                        <a href="/news/news/view/{{ newItem.News.id }}" class="case-item">
+                            {% if newItem.News.picture %}
+                                <picture class="case-image-wrap image_news">
+                                    <img src="{{ '/'~newItem.News.picture|trim('/', 'right') }}" class="case-image" alt=" ">
+                                </picture>
+                            {% endif %}
+                            <div class="case-content">
+                                <div class="news-date">{{ rusTime.formatDate(newItem.News.date, 'j F Y') }}</div>
+                                <div class="case-title">{{ newItem.News.title }}</div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn-holder spoiler-holder align-center">
+            <a href="/news" class="btn-spoiler">+ Показать больше</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-case" id="case">
+    <div class="container">
+        <div class="h2-fn">Свежие объявления</div>
+        <div class="row row-3 case-items-block">
+            {% set favorite = _view.loadHelper('Favorites.Favorite') %}
+            {{ adView.setDefaults({default_picture: '/uploads/assets/images/case-image-mob.jpg'}) }}
+            {% for item in recentOffers %}
+                {% set offerItem = adView.getInfo(item) %}
+                <div class="col-1-3 col-xs-1">
+                    <a href="{{ html.url(offerItem.url) }}" class="case-item" title="{{ adSeo.pattern_title(item)|e }}">
+                        {% set favoriteActiveClass = '' %}
+                        {% set favoriteAction = 'add' %}
+                        {% if favorite.has('Advertisement', item.Advertisement.id) %}
+                            {% set favoriteActiveClass = ' active' %}
+                            {% set favoriteAction = 'remove' %}
+                        {% endif %}
+                        {{ html.tag('div', '', {
+                            'class': 'favorites-action star' ~ favoriteActiveClass,
+                            'escape': false,
+                            'data-model': 'Advertisement',
+                            'data-id': item.Advertisement.id,
+                            'data-action': favoriteAction
+                        }) }}
+                        <div class="case-id">id {{ item.Advertisement.id }}</div>
+                        <picture class="case-image-wrap">
+                            {% set gallery = adView.getGallery(item) %}
+                            {% set galleryFirstItem = imageResized.resizeItemPicture(gallery.first, {'width': '379', 'height': '266', 'mode': 'crop', 'paddings': false, 'folder': 'twig_crop_realty_list'}) %}
+                            <img src="{{ galleryFirstItem.src }}" class="case-image" alt="{{ galleryFirstItem.description }}">
+                        </picture>
+                        <div class="case-content">
+                            <div class="case-title">{{ item.Advertisement.location_full }}</div>
+                            <div class="case-price">{{ price.format(item.Advertisement.price) }} ₽</div>
+                            <div class="case-text">{{ adView.getSiteText(item)|striptags|slice(0, 50) }}...</div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="btn-holder spoiler-holder align-center">
+            <a href="/agency/realty" class="btn-spoiler">+ Показать больше</a>
+        </div>
+    </div>
+</section>
+

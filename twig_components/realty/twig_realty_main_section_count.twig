@@ -1,0 +1,32 @@
+<section class="section-count" id="count">
+    <div class="container">
+        <div class="count old-year col-xs-1">
+            <h2 id="oldYearVal"></h2>
+            <span>Столько лет мы на рынке недвижимости</span>
+        </div>
+        <div class="count quantity-clients col-xs-1">
+            <h2>{{ _view.element("Agency.count_query_code", {"code" : "ClassRegistry::init('Contractors.Contractor')->find('count', ['conditions' => ['Contractor.deleted' => null],'recursive' => -1])"}) }}</h2>
+            <span>Наших клиентов уже</span>
+        </div>
+        <div class="count quantity-deals col-xs-1">
+            <h2 id="transactionsCarried"></h2>
+            <span>Сделок проведено</span>
+        </div>
+        <div class="count quantity-objects col-xs-1">
+            <h2>{{ _view.element('count_query', {'query' : 'all'}) }}</h2>
+            <span>Объектов в нашей базе</span>
+        </div>
+        <div class="count quantity-online col-xs-1">
+            <h2 id="qOnline"></h2>
+            <span>Клиентов на сайте</span>
+        </div>
+        <div class="count average-price col-xs-1">
+            <h2>{{ _view.element("Agency.count_query_code", {"code" : "ClassRegistry::init('Agency.Advertisement')->query('select ROUND(avg(`Advertisement`.`price_area`), 0) as `count` from `advertisements` as `Advertisement` where `Advertisement`.`deleted` is null and `Advertisement`.`category_id` not in (40, 41, 42);')[0][0]['count']"}) }}</h2>
+            <span>Средняя цена 1 кв.м.</span>
+        </div>
+        <div class="count quantity-sold col-xs-1">
+            <h2>{{ _view.element("Agency.count_query_code", {"code" : "ClassRegistry::init('Agency.Advertisement')->find('count', ['conditions' => ['Advertisement.deleted between \"' . date('Y-m-d 00:00:00') . '\" and \"' . date('Y-m-d 23:59:59') . '\"'],'recursive' => -1])"}) }}</h2>
+            <span>Уже продано сегодня нашими риелторами</span>
+        </div>
+    </div>
+</section>
